@@ -1,0 +1,121 @@
+import { Link } from "react-router-dom";
+import { Phone, Mail, MapPin, Linkedin, Instagram, Facebook } from "lucide-react";
+
+const footerLinks = {
+  empresa: [
+    { name: "Sobre Nós", path: "/sobre" },
+    { name: "Sustentabilidade", path: "/sustentabilidade" },
+    { name: "Cases de Sucesso", path: "/cases" },
+    { name: "Blog", path: "/blog" },
+  ],
+  solucoes: [
+    { name: "Sacolas de Papel", path: "/solucoes#sacolas" },
+    { name: "Embalagens", path: "/solucoes#embalagens" },
+    { name: "Personalização", path: "/solucoes#personalizacao" },
+    { name: "Loja Online", path: "/loja" },
+  ],
+  suporte: [
+    { name: "Fale Conosco", path: "/contato" },
+    { name: "Solicite Orçamento", path: "/contato" },
+    { name: "Política de Privacidade", path: "/privacidade" },
+    { name: "Termos de Uso", path: "/termos" },
+  ],
+};
+
+export function Footer() {
+  return (
+    <footer className="bg-foreground text-background">
+      {/* Main Footer */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          {/* Brand Column */}
+          <div className="lg:col-span-2">
+            <Link to="/" className="inline-block mb-6">
+              <div className="font-heading font-bold text-2xl">
+                <span className="text-primary">Print</span>
+                <span>bag</span>
+              </div>
+            </Link>
+            <p className="text-background/70 mb-6 max-w-sm">
+              Há mais de 10 anos transformando marcas através de embalagens sustentáveis e personalizadas de alta qualidade.
+            </p>
+            <div className="flex flex-col gap-3">
+              <a href="tel:+5551999999999" className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+                <Phone className="w-4 h-4" />
+                <span>(51) 99999-9999</span>
+              </a>
+              <a href="mailto:contato@printbag.com.br" className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+                <Mail className="w-4 h-4" />
+                <span>contato@printbag.com.br</span>
+              </a>
+              <div className="flex items-start gap-3 text-background/70">
+                <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
+                <span>Av. Industrial, 1500 - Distrito Industrial<br />Porto Alegre - RS, 90000-000</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Links Columns */}
+          <div>
+            <h4 className="font-heading font-semibold text-lg mb-4">Empresa</h4>
+            <ul className="flex flex-col gap-2">
+              {footerLinks.empresa.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-heading font-semibold text-lg mb-4">Soluções</h4>
+            <ul className="flex flex-col gap-2">
+              {footerLinks.solucoes.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-heading font-semibold text-lg mb-4">Suporte</h4>
+            <ul className="flex flex-col gap-2">
+              {footerLinks.suporte.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-background/10">
+        <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-background/50 text-sm">
+            © {new Date().getFullYear()} Printbag Embalagens. Todos os direitos reservados.
+          </p>
+          <div className="flex items-center gap-4">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-background/50 hover:text-primary transition-colors">
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-background/50 hover:text-primary transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-background/50 hover:text-primary transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
