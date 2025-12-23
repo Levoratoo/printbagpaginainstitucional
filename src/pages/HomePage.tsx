@@ -1,16 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { 
   CheckCircle2, 
   Leaf, 
-  Truck, 
-  Award, 
-  Users, 
-  Factory,
   ArrowRight,
-  Clock,
-  Zap,
-  Shield,
   Recycle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,50 +14,23 @@ import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 import productsCollection from "@/assets/products-collection.jpg";
 
 const clients = [
-  "Melissa",
-  "Usaflex", 
-  "Claro",
-  "Milon",
-  "Grendene",
-  "Arezzo"
-];
-
-const pillars = [
-  {
-    icon: Clock,
-    title: "Entrega JIT",
-    description: "Sistema Just-in-Time que garante entregas precisas, reduzindo custos de estoque e otimizando sua cadeia de suprimentos."
-  },
-  {
-    icon: Zap,
-    title: "Agilidade",
-    description: "Processos ágeis e equipe especializada para atender demandas urgentes sem comprometer a qualidade."
-  },
-  {
-    icon: Shield,
-    title: "Qualidade Premium",
-    description: "Controle rigoroso em todas as etapas de produção, garantindo excelência em cada embalagem."
-  },
-  {
-    icon: Recycle,
-    title: "Sustentabilidade",
-    description: "Compromisso com o meio ambiente através de materiais reciclados e processos eco-friendly."
-  },
-  {
-    icon: Users,
-    title: "Parceria",
-    description: "Relacionamento próximo e consultivo para entender e superar as expectativas do seu negócio."
-  }
+  { name: "Melissa", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Melissa_%28brand%29_logo.svg/200px-Melissa_%28brand%29_logo.svg.png" },
+  { name: "Usaflex", logo: "https://logodownload.org/wp-content/uploads/2019/10/usaflex-logo.png" },
+  { name: "Arezzo", logo: "https://logodownload.org/wp-content/uploads/2018/11/arezzo-logo.png" },
+  { name: "Grendene", logo: "https://logodownload.org/wp-content/uploads/2020/09/grendene-logo.png" },
+  { name: "Milon", logo: "https://logodownload.org/wp-content/uploads/2019/08/milon-logo.png" },
+  { name: "Claro", logo: "https://logodownload.org/wp-content/uploads/2014/04/claro-logo-1.png" }
 ];
 
 const stats = [
-  { value: "10+", label: "Anos de Experiência" },
+  { value: "25+", label: "Anos de Experiência" },
   { value: "500+", label: "Clientes Atendidos" },
   { value: "50M+", label: "Embalagens/Ano" },
   { value: "99%", label: "Taxa de Satisfação" },
 ];
 
 export default function HomePage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
   return (
     <Layout>
       {/* Hero Section */}
@@ -75,7 +42,7 @@ export default function HomePage() {
             alt="Fábrica Printbag - Linha de produção moderna" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-hero" />
+          <div className="absolute inset-0 bg-primary/60" />
         </div>
 
         {/* Content */}
@@ -108,8 +75,8 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl"
             >
-              Há mais de 10 anos desenvolvendo soluções personalizadas em sacolas e embalagens 
-              para as maiores marcas do Brasil. Qualidade, sustentabilidade e entrega JIT.
+              Há mais de 25 anos desenvolvendo soluções personalizadas em sacolas e embalagens 
+              para as maiores marcas do Brasil. Qualidade, sustentabilidade e tecnologia.
             </motion.p>
 
             <motion.div
@@ -149,7 +116,7 @@ export default function HomePage() {
       </section>
 
       {/* Clients Section */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 bg-muted overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -161,64 +128,22 @@ export default function HomePage() {
               Marcas que confiam na Printbag
             </p>
           </motion.div>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-            {clients.map((client, index) => (
-              <motion.div
-                key={client}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-2xl md:text-3xl font-heading font-bold text-muted-foreground/40 hover:text-primary transition-colors duration-300"
-              >
-                {client}
-              </motion.div>
-            ))}
-          </div>
         </div>
-      </section>
-
-      {/* 5 Pillars Section */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
-          >
-            <span className="text-primary font-medium uppercase tracking-wider text-sm">
-              Nosso Diferencial
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
-              Os 5 Pilares do Processo Comercial
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Construímos parcerias duradouras baseadas em pilares sólidos que garantem 
-              excelência em cada etapa do processo.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {pillars.map((pillar, index) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-medium transition-all duration-300"
+        
+        {/* Infinite Scroll Carousel */}
+        <div className="relative">
+          <div className="flex animate-marquee">
+            {[...clients, ...clients, ...clients].map((client, index) => (
+              <div
+                key={`${client.name}-${index}`}
+                className="flex-shrink-0 mx-8 md:mx-12 grayscale hover:grayscale-0 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                  <pillar.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                </div>
-                <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
-                  {pillar.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {pillar.description}
-                </p>
-              </motion.div>
+                <img 
+                  src={client.logo} 
+                  alt={client.name}
+                  className="h-10 md:h-14 w-auto object-contain"
+                />
+              </div>
             ))}
           </div>
         </div>
