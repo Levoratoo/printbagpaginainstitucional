@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Linkedin, Instagram, Facebook } from "lucide-react";
+import logoPrintbag from "@/assets/logo-printbag.png";
 
 const footerLinks = {
   empresa: [
@@ -31,13 +32,14 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <div className="font-heading font-bold text-2xl">
-                <span className="text-primary">Print</span>
-                <span>bag</span>
-              </div>
+              <img 
+                src={logoPrintbag} 
+                alt="Printbag Embalagens" 
+                className="h-14 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-background/70 mb-6 max-w-sm">
-              Há mais de 10 anos transformando marcas através de embalagens sustentáveis e personalizadas de alta qualidade.
+              Há mais de 25 anos transformando marcas através de embalagens sustentáveis e personalizadas de alta qualidade.
             </p>
             <div className="flex flex-col gap-3">
               <a href="tel:+5551999999999" className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
