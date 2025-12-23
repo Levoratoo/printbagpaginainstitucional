@@ -116,13 +116,13 @@ export default function HomePage() {
       </section>
 
       {/* Clients Section */}
-      <section className="py-16 bg-muted overflow-hidden">
+      <section className="py-10 bg-muted overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-10"
+            className="text-center mb-8"
           >
             <p className="text-muted-foreground font-medium uppercase tracking-wider text-sm">
               Marcas que confiam na Printbag
@@ -150,70 +150,110 @@ export default function HomePage() {
       </section>
 
       {/* Products Preview */}
-      <section className="py-20 md:py-28 bg-muted">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <span className="text-primary font-medium uppercase tracking-wider text-sm">
+              Nosso Portfólio
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
+              Soluções Completas em Embalagens
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Do design à entrega, oferecemos uma linha completa de sacolas e embalagens 
+              personalizadas para atender às necessidades específicas da sua marca.
+            </p>
+          </motion.div>
+
+          {/* Cards */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Card Printmoda */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300"
             >
-              <span className="text-primary font-medium uppercase tracking-wider text-sm">
-                Nosso Portfólio
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
-                Soluções Completas em Embalagens
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Do design à entrega, oferecemos uma linha completa de sacolas e embalagens 
-                personalizadas para atender às necessidades específicas da sua marca.
-              </p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  "Sacolas de papel kraft e couché",
-                  "Embalagens para varejo e e-commerce",
-                  "Impressão offset e flexográfica",
-                  "Acabamentos especiais e laminação"
-                ].map((item, index) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </motion.div>
-                ))}
+              <div className="h-48 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-4xl">👗</span>
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold text-primary">Linha Printmoda</h3>
+                </div>
               </div>
-
-              <Button variant="cta" size="lg" asChild>
-                <Link to="/solucoes">
-                  Ver Todas as Soluções
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
+              <div className="p-6">
+                <p className="text-muted-foreground mb-6">
+                  Soluções elegantes para o mercado da moda e varejo.
+                </p>
+                <div className="space-y-3">
+                  {[
+                    "Sacolas de papel kraft e couché",
+                    "Caixas personalizadas",
+                    "Envelopes e tags",
+                    "Etiquetas e papel de seda"
+                  ].map((item, index) => (
+                    <div key={item} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                      <span className="text-foreground text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="cta" size="lg" asChild className="w-full mt-6">
+                  <Link to="/solucoes">
+                    Ver Produtos
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
 
+            {/* Card PrintFood */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              transition={{ delay: 0.2 }}
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300"
             >
-              <div className="rounded-2xl overflow-hidden shadow-strong">
-                <img 
-                  src={productsCollection} 
-                  alt="Coleção de sacolas e embalagens Printbag" 
-                  className="w-full h-auto"
-                />
+              <div className="h-48 bg-gradient-to-br from-secondary/20 to-secondary/5 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-4xl">🍔</span>
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold text-secondary">Linha PrintFood</h3>
+                </div>
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-6 rounded-xl shadow-glow-primary">
-                <div className="text-3xl font-heading font-bold">100%</div>
-                <div className="text-sm text-primary-foreground/80">Personalizável</div>
+              <div className="p-6">
+                <p className="text-muted-foreground mb-6">
+                  Embalagens seguras e práticas para o setor alimentício.
+                </p>
+                <div className="space-y-3">
+                  {[
+                    "Sacolas e sacos para delivery",
+                    "Caixas para alimentos",
+                    "Guardanapos personalizados",
+                    "Papel de seda e papel barreira"
+                  ].map((item, index) => (
+                    <div key={item} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
+                      <span className="text-foreground text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="sustainability" size="lg" asChild className="w-full mt-6">
+                  <Link to="/solucoes">
+                    Ver Produtos
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
               </div>
             </motion.div>
           </div>
