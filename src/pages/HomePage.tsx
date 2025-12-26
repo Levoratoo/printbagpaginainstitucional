@@ -43,7 +43,7 @@ export default function HomePage() {
             alt="Fábrica Printbag - Linha de produção moderna" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-primary/40" />
+          <div className="absolute inset-0 bg-primary/20" />
         </div>
 
         {/* Content */}
