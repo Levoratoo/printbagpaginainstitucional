@@ -35,7 +35,7 @@ export function Footer() {
               <img 
                 src={logoPrintbag} 
                 alt="Printbag Embalagens" 
-                className="h-14 w-auto brightness-0 invert"
+                className="h-14 w-auto"
               />
             </Link>
             <p className="text-background/70 mb-6 max-w-sm">
