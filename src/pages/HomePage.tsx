@@ -14,13 +14,39 @@ import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 import cardPrintmoda from "@/assets/card-printmoda.jpg";
 import cardPrintfood from "@/assets/card-printfood.jpg";
 
+// Client logos - Alphabetical order
+import logoAramis from "@/assets/clients/aramis.png";
+import logoArezzo from "@/assets/clients/arezzo.png";
+import logoCarolinaHerrera from "@/assets/clients/carolina-herrera.png";
+import logoClaro from "@/assets/clients/claro.png";
+import logoConstance from "@/assets/clients/constance.png";
+import logoDemocrata from "@/assets/clients/democrata.png";
+import logoGrendene from "@/assets/clients/grendene.png";
+import logoLacoste from "@/assets/clients/lacoste.png";
+import logoMadero from "@/assets/clients/madero.png";
+import logoMaryKay from "@/assets/clients/mary-kay.png";
+import logoMelissa from "@/assets/clients/melissa.png";
+import logoMilon from "@/assets/clients/milon.png";
+import logoRaiaDrogasil from "@/assets/clients/raiadrogasil.png";
+import logoSubway from "@/assets/clients/subway.png";
+import logoUsaflex from "@/assets/clients/usaflex.png";
+
 const clients = [
-  { name: "Melissa", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Melissa_%28brand%29_logo.svg/200px-Melissa_%28brand%29_logo.svg.png" },
-  { name: "Usaflex", logo: "https://logodownload.org/wp-content/uploads/2019/10/usaflex-logo.png" },
-  { name: "Arezzo", logo: "https://logodownload.org/wp-content/uploads/2018/11/arezzo-logo.png" },
-  { name: "Grendene", logo: "https://logodownload.org/wp-content/uploads/2020/09/grendene-logo.png" },
-  { name: "Milon", logo: "https://logodownload.org/wp-content/uploads/2019/08/milon-logo.png" },
-  { name: "Claro", logo: "https://logodownload.org/wp-content/uploads/2014/04/claro-logo-1.png" }
+  { name: "Aramis", logo: logoAramis },
+  { name: "Arezzo", logo: logoArezzo },
+  { name: "Carolina Herrera", logo: logoCarolinaHerrera },
+  { name: "Claro", logo: logoClaro },
+  { name: "Constance", logo: logoConstance },
+  { name: "Democrata", logo: logoDemocrata },
+  { name: "Grendene", logo: logoGrendene },
+  { name: "Lacoste", logo: logoLacoste },
+  { name: "Madero", logo: logoMadero },
+  { name: "Mary Kay", logo: logoMaryKay },
+  { name: "Melissa", logo: logoMelissa },
+  { name: "Milon", logo: logoMilon },
+  { name: "RaiaDrogasil", logo: logoRaiaDrogasil },
+  { name: "Subway", logo: logoSubway },
+  { name: "Usaflex", logo: logoUsaflex },
 ];
 
 const stats = [
