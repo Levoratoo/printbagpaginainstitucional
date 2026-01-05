@@ -67,28 +67,6 @@ const timeline = [
   }
 ];
 
-const team = [
-  {
-    name: "Carlos Silva",
-    role: "CEO & Fundador",
-    description: "30 anos de experiência no mercado de embalagens"
-  },
-  {
-    name: "Ana Costa",
-    role: "Diretora Comercial",
-    description: "Especialista em relacionamento B2B e parcerias estratégicas"
-  },
-  {
-    name: "Roberto Oliveira",
-    role: "Diretor Industrial",
-    description: "Engenheiro com foco em processos lean e qualidade"
-  },
-  {
-    name: "Marina Santos",
-    role: "Diretora de Sustentabilidade",
-    description: "Líder em iniciativas ESG e certificações ambientais"
-  }
-];
 
 export default function SobrePage() {
   return (
@@ -209,8 +187,7 @@ export default function SobrePage() {
                 Missão
               </h3>
               <p className="text-muted-foreground">
-                Desenvolver soluções em embalagens que agreguem valor às marcas de 
-                nossos clientes, com qualidade, sustentabilidade e pontualidade.
+                Inovar, encantar e apaixonar pessoas.
               </p>
             </motion.div>
 
@@ -228,8 +205,7 @@ export default function SobrePage() {
                 Visão
               </h3>
               <p className="text-muted-foreground">
-                Ser a referência nacional em embalagens sustentáveis e personalizadas, 
-                reconhecida pela excelência e inovação.
+                Ser a primeira escolha dos clientes.
               </p>
             </motion.div>
 
@@ -247,8 +223,7 @@ export default function SobrePage() {
                 Valores
               </h3>
               <p className="text-muted-foreground">
-                Ética, sustentabilidade, inovação, qualidade e compromisso com 
-                nossos clientes, colaboradores e meio ambiente.
+                Justos socialmente, corretos ambientalmente e viáveis economicamente.
               </p>
             </motion.div>
           </div>
@@ -338,53 +313,6 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 md:py-28 bg-muted">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
-          >
-            <span className="text-primary font-medium uppercase tracking-wider text-sm">
-              Nossa Equipe
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
-              Liderança Executiva
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Uma equipe experiente e comprometida com a excelência em cada projeto.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border text-center hover:border-primary/30 hover:shadow-medium transition-all duration-300"
-              >
-                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="text-lg font-heading font-semibold text-foreground mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-primary font-medium text-sm mb-3">
-                  {member.role}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {member.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-20 md:py-28 bg-gradient-hero">
