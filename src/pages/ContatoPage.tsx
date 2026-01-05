@@ -3,14 +3,12 @@ import { motion } from "framer-motion";
 import { 
   Phone, 
   Mail, 
-  MapPin, 
-  Clock,
   Send,
   Building2,
   User,
-  Briefcase,
   Package,
-  MessageSquare
+  MessageSquare,
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,33 +16,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/layout/Layout";
 import { toast } from "sonner";
-
-const contactInfo = [
-  {
-    icon: Phone,
-    title: "Telefone",
-    value: "(51) 3333-4444",
-    description: "Seg a Sex, 8h às 18h"
-  },
-  {
-    icon: Mail,
-    title: "E-mail",
-    value: "contato@printbag.com.br",
-    description: "Respondemos em até 24h"
-  },
-  {
-    icon: MapPin,
-    title: "Endereço",
-    value: "Av. Industrial, 1500",
-    description: "Distrito Industrial - Porto Alegre/RS"
-  },
-  {
-    icon: Clock,
-    title: "Horário",
-    value: "Seg a Sex",
-    description: "8h às 18h"
-  }
-];
 
 const volumeOptions = [
   "Até 1.000 unidades",
@@ -62,11 +33,20 @@ const productTypes = [
   "Outro"
 ];
 
+const assuntoOptions = [
+  "Fazer um orçamento",
+  "Falar com Marketing",
+  "Falar com Recursos Humanos",
+  "Ser Nosso Fornecedor",
+  "Sugestão ou Reclamação",
+  "Outros"
+];
+
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
     nome: "",
     empresa: "",
-    cargo: "",
+    assunto: "",
     email: "",
     telefone: "",
     tipoEmbalagem: "",
@@ -94,7 +74,7 @@ export default function ContatoPage() {
     setFormData({
       nome: "",
       empresa: "",
-      cargo: "",
+      assunto: "",
       email: "",
       telefone: "",
       tipoEmbalagem: "",
@@ -103,6 +83,8 @@ export default function ContatoPage() {
     });
     setIsSubmitting(false);
   };
+
+  const isOrcamento = formData.assunto === "Fazer um orçamento";
 
   return (
     <Layout>
@@ -139,32 +121,6 @@ export default function ContatoPage() {
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-12 -mt-8 relative z-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={info.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border shadow-soft hover:shadow-medium transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <info.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-heading font-semibold text-foreground mb-1">
-                  {info.title}
-                </h3>
-                <p className="text-foreground font-medium">{info.value}</p>
-                <p className="text-sm text-muted-foreground">{info.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Form Section */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
@@ -176,11 +132,11 @@ export default function ContatoPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
-                Solicite um Orçamento
+                Fale Conosco
               </h2>
               <p className="text-muted-foreground mb-8">
                 Preencha o formulário abaixo com suas informações e necessidades. 
-                Nossa equipe comercial entrará em contato em até 24 horas úteis.
+                Nossa equipe entrará em contato em até 24 horas úteis.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -202,33 +158,39 @@ export default function ContatoPage() {
                   <div className="space-y-2">
                     <Label htmlFor="empresa" className="flex items-center gap-2">
                       <Building2 className="w-4 h-4" />
-                      Empresa *
+                      Empresa
                     </Label>
                     <Input
                       id="empresa"
                       name="empresa"
                       value={formData.empresa}
                       onChange={handleInputChange}
-                      placeholder="Nome da empresa"
-                      required
+                      placeholder="Nome da empresa (opcional)"
                     />
                   </div>
                 </div>
 
+                <div className="space-y-2">
+                  <Label htmlFor="assunto" className="flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    Assunto *
+                  </Label>
+                  <select
+                    id="assunto"
+                    name="assunto"
+                    value={formData.assunto}
+                    onChange={handleInputChange}
+                    required
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    <option value="">Selecione...</option>
+                    {assuntoOptions.map(assunto => (
+                      <option key={assunto} value={assunto}>{assunto}</option>
+                    ))}
+                  </select>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="cargo" className="flex items-center gap-2">
-                      <Briefcase className="w-4 h-4" />
-                      Cargo
-                    </Label>
-                    <Input
-                      id="cargo"
-                      name="cargo"
-                      value={formData.cargo}
-                      onChange={handleInputChange}
-                      placeholder="Seu cargo"
-                    />
-                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="flex items-center gap-2">
                       <Mail className="w-4 h-4" />
@@ -244,9 +206,6 @@ export default function ContatoPage() {
                       required
                     />
                   </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="telefone" className="flex items-center gap-2">
                       <Phone className="w-4 h-4" />
@@ -261,41 +220,50 @@ export default function ContatoPage() {
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="tipoEmbalagem" className="flex items-center gap-2">
-                      <Package className="w-4 h-4" />
-                      Tipo de Embalagem
-                    </Label>
-                    <select
-                      id="tipoEmbalagem"
-                      name="tipoEmbalagem"
-                      value={formData.tipoEmbalagem}
-                      onChange={handleInputChange}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      <option value="">Selecione...</option>
-                      {productTypes.map(type => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="volume">Volume Estimado</Label>
-                  <select
-                    id="volume"
-                    name="volume"
-                    value={formData.volume}
-                    onChange={handleInputChange}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                {isOrcamento && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="grid md:grid-cols-2 gap-6"
                   >
-                    <option value="">Selecione...</option>
-                    {volumeOptions.map(vol => (
-                      <option key={vol} value={vol}>{vol}</option>
-                    ))}
-                  </select>
-                </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="tipoEmbalagem" className="flex items-center gap-2">
+                        <Package className="w-4 h-4" />
+                        Tipo de Embalagem
+                      </Label>
+                      <select
+                        id="tipoEmbalagem"
+                        name="tipoEmbalagem"
+                        value={formData.tipoEmbalagem}
+                        onChange={handleInputChange}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        <option value="">Selecione...</option>
+                        {productTypes.map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="volume">Volume Estimado</Label>
+                      <select
+                        id="volume"
+                        name="volume"
+                        value={formData.volume}
+                        onChange={handleInputChange}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        <option value="">Selecione...</option>
+                        {volumeOptions.map(vol => (
+                          <option key={vol} value={vol}>{vol}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </motion.div>
+                )}
 
                 <div className="space-y-2">
                   <Label htmlFor="mensagem" className="flex items-center gap-2">
@@ -323,7 +291,7 @@ export default function ContatoPage() {
                     "Enviando..."
                   ) : (
                     <>
-                      Enviar Solicitação
+                      Enviar Mensagem
                       <Send className="w-5 h-5" />
                     </>
                   )}
@@ -331,13 +299,13 @@ export default function ContatoPage() {
               </form>
             </motion.div>
 
-            {/* Map & Additional Info */}
+            {/* Map */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="bg-muted rounded-2xl p-6 mb-8">
+              <div className="bg-muted rounded-2xl p-6">
                 <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
                   Nossa Localização
                 </h3>
@@ -351,24 +319,6 @@ export default function ContatoPage() {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
-                </div>
-              </div>
-
-              <div className="bg-primary rounded-2xl p-8 text-primary-foreground">
-                <h3 className="text-xl font-heading font-bold mb-4">
-                  Fale com um Consultor JIT
-                </h3>
-                <p className="text-primary-foreground/80 mb-6">
-                  Precisa de um atendimento especializado em entregas Just-in-Time? 
-                  Nossa equipe de consultores está pronta para entender suas necessidades 
-                  de fornecimento contínuo.
-                </p>
-                <div className="flex items-center gap-4">
-                  <Phone className="w-8 h-8" />
-                  <div>
-                    <div className="text-sm text-primary-foreground/70">Linha Direta JIT</div>
-                    <div className="text-xl font-heading font-bold">(51) 3333-5555</div>
-                  </div>
                 </div>
               </div>
             </motion.div>
