@@ -17,6 +17,7 @@ const navItems = [
       { name: "Personalização", path: "/solucoes#personalizacao" },
     ]
   },
+  { name: "Loja", path: "https://loja.printbag.com.br/", external: true },
   { name: "Sustentabilidade", path: "/sustentabilidade" },
   { name: "Contato", path: "/contato" },
 ];
@@ -65,19 +66,30 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
-                <Link
-                  to={item.path}
-                  className={`flex items-center gap-1 font-medium transition-colors duration-200 ${
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-foreground hover:text-primary"
-                  }`}
-                >
-                  {item.name}
-                  {item.submenu && <ChevronDown className="w-4 h-4" />}
-                </Link>
+                {'external' in item && item.external ? (
+                  <a
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 font-medium transition-colors duration-200 text-foreground hover:text-primary"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className={`flex items-center gap-1 font-medium transition-colors duration-200 ${
+                      location.pathname === item.path
+                        ? "text-primary"
+                        : "text-foreground hover:text-primary"
+                    }`}
+                  >
+                    {item.name}
+                    {'submenu' in item && item.submenu && <ChevronDown className="w-4 h-4" />}
+                  </Link>
+                )}
                 
-                {item.submenu && (
+                {'submenu' in item && item.submenu && (
                   <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="bg-card rounded-lg shadow-medium p-2 min-w-[200px] border border-border">
                       {item.submenu.map((subItem) => (
@@ -127,17 +139,28 @@ export function Header() {
                 {navItems.map((item) => (
                   <div key={item.name}>
                     <div className="flex items-center justify-between">
-                      <Link
-                        to={item.path}
-                        className={`text-lg font-medium transition-colors ${
-                          location.pathname === item.path
-                            ? "text-primary"
-                            : "text-foreground hover:text-primary"
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
-                      {item.submenu && (
+                      {'external' in item && item.external ? (
+                        <a
+                          href={item.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lg font-medium transition-colors text-foreground hover:text-primary"
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          className={`text-lg font-medium transition-colors ${
+                            location.pathname === item.path
+                              ? "text-primary"
+                              : "text-foreground hover:text-primary"
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                      {'submenu' in item && item.submenu && (
                         <button
                           onClick={() => setOpenSubmenu(openSubmenu === item.name ? null : item.name)}
                           className="p-2"
@@ -146,7 +169,7 @@ export function Header() {
                         </button>
                       )}
                     </div>
-                    {item.submenu && openSubmenu === item.name && (
+                    {'submenu' in item && item.submenu && openSubmenu === item.name && (
                       <div className="pl-4 mt-2 flex flex-col gap-2">
                         {item.submenu.map((subItem) => (
                           <Link
