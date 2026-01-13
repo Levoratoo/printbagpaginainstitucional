@@ -1,58 +1,89 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { 
   Package, 
   ShoppingBag, 
-  Palette, 
   Printer,
   ArrowRight,
   CheckCircle2,
   Layers,
   Sparkles,
-  Box
+  Box,
+  FileText,
+  Tag,
+  Scissors,
+  ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import productsCollection from "@/assets/products-collection.jpg";
 
-const categories = [
-  {
-    id: "sacolas",
-    icon: ShoppingBag,
-    title: "Sacolas de Papel",
-    description: "Sacolas personalizadas em papel kraft, couché ou reciclado, com diversas opções de acabamento.",
-    features: [
-      "Papel kraft branco ou pardo",
-      "Papel couché fosco ou brilho",
-      "Alças de papel, cordão ou fita",
-      "Diversos tamanhos disponíveis"
-    ]
-  },
-  {
-    id: "embalagens",
-    icon: Package,
-    title: "Embalagens",
-    description: "Caixas e embalagens para varejo, e-commerce e presenteáveis com máxima qualidade.",
-    features: [
-      "Caixas rígidas premium",
-      "Embalagens para e-commerce",
-      "Caixas presenteáveis",
-      "Embalagens promocionais"
-    ]
-  },
-  {
-    id: "personalizacao",
-    icon: Palette,
-    title: "Personalização",
-    description: "Impressão de alta qualidade e acabamentos especiais que valorizam sua marca.",
-    features: [
-      "Impressão offset até 6 cores",
-      "Hot stamping ouro e prata",
-      "Laminação fosca e brilho",
-      "Verniz localizado"
-    ]
-  }
+// Product types for the first selection
+const productTypes = [
+  { id: "sacolas", label: "Sacolas", icon: ShoppingBag },
+  { id: "saco", label: "Saco", icon: Package },
+  { id: "caixa", label: "Caixa", icon: Box },
+  { id: "envelope", label: "Envelope", icon: FileText },
+  { id: "etiqueta", label: "Etiqueta", icon: Tag },
+  { id: "papel-seda", label: "Papel de Seda", icon: Scissors },
+  { id: "tag", label: "Tag", icon: Tag },
+  { id: "papel-barreira", label: "Papel Barreira", icon: Layers },
+  { id: "outro", label: "Outro", icon: Package }
 ];
+
+// Sub-options for each product type
+const productSubOptions: Record<string, { id: string; label: string; description: string }[]> = {
+  sacolas: [
+    { id: "sem-enobrecimento", label: "Sacolas sem enobrecimentos", description: "Sacolas simples, funcionais e econômicas" },
+    { id: "enobrecidas", label: "Sacolas enobrecidas", description: "Sacolas com acabamentos premium como hot stamping, relevo e laminação" }
+  ],
+  saco: [
+    { id: "sem-enobrecimento", label: "Sacos sem enobrecimentos", description: "Sacos funcionais para diversas aplicações" },
+    { id: "enobrecidos", label: "Sacos enobrecidos", description: "Sacos com acabamentos especiais" }
+  ],
+  caixa: [
+    { id: "sem-enobrecimento", label: "Caixas sem enobrecimentos", description: "Caixas funcionais e resistentes" },
+    { id: "enobrecidas", label: "Caixas enobrecidas", description: "Caixas com acabamentos premium" }
+  ],
+  envelope: [
+    { id: "sem-enobrecimento", label: "Envelopes sem enobrecimentos", description: "Envelopes práticos e funcionais" },
+    { id: "enobrecidos", label: "Envelopes enobrecidos", description: "Envelopes com acabamentos especiais" }
+  ],
+  etiqueta: [
+    { id: "adesiva", label: "Etiquetas adesivas", description: "Etiquetas com adesivo de alta qualidade" },
+    { id: "tag", label: "Etiquetas tipo tag", description: "Etiquetas para pendurar em produtos" }
+  ],
+  "papel-seda": [
+    { id: "impresso", label: "Papel de seda impresso", description: "Papel de seda personalizado com sua marca" },
+    { id: "liso", label: "Papel de seda liso", description: "Papel de seda em cores sólidas" }
+  ],
+  tag: [
+    { id: "simples", label: "Tags simples", description: "Tags funcionais para identificação" },
+    { id: "enobrecidas", label: "Tags enobrecidas", description: "Tags com acabamentos premium" }
+  ],
+  "papel-barreira": [
+    { id: "alimentos", label: "Para alimentos", description: "Papel barreira para uso alimentício" },
+    { id: "outros", label: "Outras aplicações", description: "Papel barreira para diversas aplicações" }
+  ],
+  outro: [
+    { id: "personalizado", label: "Produto personalizado", description: "Conte-nos o que você precisa" }
+  ]
+};
+
+// Example products (placeholder for now)
+const exampleProducts: Record<string, { title: string; description: string }[]> = {
+  "sacolas-sem-enobrecimento": [
+    { title: "Sacola Kraft Natural", description: "Sacola em papel kraft com alça torcida" },
+    { title: "Sacola Branca Lisa", description: "Sacola em papel branco com impressão simples" },
+    { title: "Sacola Reciclada", description: "Sacola em papel reciclado com design clean" }
+  ],
+  "sacolas-enobrecidas": [
+    { title: "Sacola Premium Hot Stamping", description: "Sacola com hot stamping dourado e laminação fosca" },
+    { title: "Sacola Luxo Relevo", description: "Sacola com relevo seco e verniz localizado" },
+    { title: "Sacola Boutique", description: "Sacola com acabamento especial para marcas premium" }
+  ]
+};
 
 const finishes = [
   {
@@ -87,6 +118,28 @@ const advantages = [
 ];
 
 export default function SolucoesPage() {
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedSubOption, setSelectedSubOption] = useState<string | null>(null);
+
+  const handleProductSelect = (productId: string) => {
+    setSelectedProduct(productId);
+    setSelectedSubOption(null);
+  };
+
+  const handleSubOptionSelect = (subOptionId: string) => {
+    setSelectedSubOption(subOptionId);
+  };
+
+  const handleReset = () => {
+    setSelectedProduct(null);
+    setSelectedSubOption(null);
+  };
+
+  const currentSubOptions = selectedProduct ? productSubOptions[selectedProduct] || [] : [];
+  const currentExamples = selectedProduct && selectedSubOption 
+    ? exampleProducts[`${selectedProduct}-${selectedSubOption}`] || []
+    : [];
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -152,7 +205,7 @@ export default function SolucoesPage() {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Product Selection Section */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
           <motion.div
@@ -162,62 +215,210 @@ export default function SolucoesPage() {
             className="text-center max-w-3xl mx-auto mb-16"
           >
             <span className="text-primary font-medium uppercase tracking-wider text-sm">
-              Categorias
+              Monte seu Orçamento
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
-              Linha Completa de Produtos
+              Qual Produto Você Procura?
             </h2>
             <p className="text-lg text-muted-foreground">
-              Soluções para cada necessidade do seu negócio, com qualidade premium 
-              e personalização total.
+              Selecione o tipo de produto desejado e explore nossas opções.
             </p>
           </motion.div>
 
-          <div className="space-y-20">
-            {categories.map((category, index) => (
-              <motion.div
-                key={category.id}
-                id={category.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-              >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                    <category.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">
-                    {category.title}
-                  </h3>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    {category.description}
-                  </p>
-                  <div className="space-y-3 mb-8">
-                    {category.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Selection Area */}
+            <div className="space-y-8">
+              {/* Breadcrumb / Reset */}
+              <AnimatePresence>
+                {selectedProduct && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center gap-2 text-sm"
+                  >
+                    <button 
+                      onClick={handleReset}
+                      className="text-primary hover:underline"
+                    >
+                      Produtos
+                    </button>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-foreground font-medium">
+                      {productTypes.find(p => p.id === selectedProduct)?.label}
+                    </span>
+                    {selectedSubOption && (
+                      <>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-foreground font-medium">
+                          {currentSubOptions.find(s => s.id === selectedSubOption)?.label}
+                        </span>
+                      </>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Step 1: Product Type Selection */}
+              <AnimatePresence mode="wait">
+                {!selectedProduct && (
+                  <motion.div
+                    key="products"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="space-y-4"
+                  >
+                    <h3 className="text-xl font-heading font-semibold text-foreground">
+                      Selecione o tipo de produto:
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                      {productTypes.map((product, index) => (
+                        <motion.button
+                          key={product.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          onClick={() => handleProductSelect(product.id)}
+                          className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border bg-card hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                        >
+                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <product.icon className="w-6 h-6 text-primary" />
+                          </div>
+                          <span className="font-medium text-foreground text-center">
+                            {product.label}
+                          </span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 2: Sub-option Selection */}
+                {selectedProduct && !selectedSubOption && currentSubOptions.length > 0 && (
+                  <motion.div
+                    key="suboptions"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="space-y-4"
+                  >
+                    <h3 className="text-xl font-heading font-semibold text-foreground">
+                      O que você procura?
+                    </h3>
+                    <div className="space-y-4">
+                      {currentSubOptions.map((option, index) => (
+                        <motion.button
+                          key={option.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          onClick={() => handleSubOptionSelect(option.id)}
+                          className="w-full text-left p-6 rounded-xl border border-border bg-card hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                                {option.label}
+                              </h4>
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {option.description}
+                              </p>
+                            </div>
+                            <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Step 3: Examples */}
+                {selectedProduct && selectedSubOption && (
+                  <motion.div
+                    key="examples"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="space-y-6"
+                  >
+                    <h3 className="text-xl font-heading font-semibold text-foreground">
+                      Exemplos de produtos:
+                    </h3>
+                    {currentExamples.length > 0 ? (
+                      <div className="space-y-4">
+                        {currentExamples.map((example, index) => (
+                          <motion.div
+                            key={example.title}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="p-6 rounded-xl border border-border bg-card"
+                          >
+                            <h4 className="font-semibold text-foreground">{example.title}</h4>
+                            <p className="text-sm text-muted-foreground mt-1">{example.description}</p>
+                          </motion.div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <Button variant="cta" size="lg" asChild>
-                    <Link to="/contato">
-                      Solicitar Orçamento
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                </div>
-                
-                <div className={`bg-muted rounded-2xl p-8 md:p-12 aspect-square flex items-center justify-center ${
-                  index % 2 === 1 ? "lg:order-1" : ""
-                }`}>
-                  <category.icon className="w-32 h-32 text-primary/20" />
-                </div>
-              </motion.div>
-            ))}
+                    ) : (
+                      <div className="p-6 rounded-xl border border-border bg-card text-center">
+                        <p className="text-muted-foreground">
+                          Exemplos em breve. Entre em contato para saber mais!
+                        </p>
+                      </div>
+                    )}
+                    
+                    <Button variant="cta" size="lg" asChild className="w-full">
+                      <Link to="/contato">
+                        Solicitar Orçamento
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Image Placeholder Area */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-muted rounded-2xl p-8 md:p-12 aspect-square flex items-center justify-center sticky top-32"
+            >
+              <AnimatePresence mode="wait">
+                {selectedProduct ? (
+                  <motion.div
+                    key={selectedProduct}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="text-center"
+                  >
+                    {(() => {
+                      const ProductIcon = productTypes.find(p => p.id === selectedProduct)?.icon || Package;
+                      return <ProductIcon className="w-32 h-32 text-primary/30 mx-auto mb-4" />;
+                    })()}
+                    <p className="text-muted-foreground">
+                      Imagem do produto em breve
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="default"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="text-center"
+                  >
+                    <Package className="w-32 h-32 text-primary/20 mx-auto mb-4" />
+                    <p className="text-muted-foreground">
+                      Selecione um produto para ver exemplos
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
         </div>
       </section>
