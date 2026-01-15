@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import factoryAerial from "@/assets/factory-aerial.jpg";
+import sobreHero from "@/assets/sobre-hero.jpg";
 
 const values = [
   {
@@ -78,13 +79,16 @@ export default function SobrePage() {
     <Layout>
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 bg-muted" />
+        <div className="absolute inset-0">
+          <img src={sobreHero} alt="Fábrica Printbag ao pôr do sol" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-primary font-medium uppercase tracking-wider text-sm"
+              className="text-primary-foreground font-medium uppercase tracking-wider text-sm"
             >
               Sobre Nós
             </motion.span>
@@ -92,7 +96,7 @@ export default function SobrePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground mt-4 mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mt-4 mb-6"
             >
               Mais de 10 Anos{" "}
               <span className="text-gradient-primary">Transformando</span>{" "}
@@ -102,7 +106,7 @@ export default function SobrePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground"
+              className="text-lg md:text-xl text-primary-foreground/90"
             >
               Somos a Printbag, fabricante de embalagens e sacolas que combina 
               tradição, inovação e sustentabilidade para criar soluções que 
