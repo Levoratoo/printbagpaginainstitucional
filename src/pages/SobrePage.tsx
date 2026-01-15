@@ -4,41 +4,15 @@ import {
   Target, 
   Eye, 
   Heart, 
-  Award, 
-  Users, 
   Factory,
   ArrowRight,
-  Calendar,
-  Building2,
-  TrendingUp
+  Calendar
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import factoryAerial from "@/assets/factory-aerial.jpg";
 import sobreHero from "@/assets/sobre-hero.jpg";
 
-const values = [
-  {
-    icon: Target,
-    title: "Excelência",
-    description: "Buscamos a perfeição em cada detalhe, desde o atendimento até a entrega final."
-  },
-  {
-    icon: Heart,
-    title: "Compromisso",
-    description: "Honramos nossos acordos e prazos, construindo relações de confiança duradouras."
-  },
-  {
-    icon: Users,
-    title: "Parceria",
-    description: "Trabalhamos lado a lado com nossos clientes para entender e superar expectativas."
-  },
-  {
-    icon: TrendingUp,
-    title: "Inovação",
-    description: "Investimos constantemente em tecnologia e processos para oferecer as melhores soluções."
-  }
-];
 
 const timeline = [
   {
@@ -182,81 +156,77 @@ export default function SobrePage() {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Missão */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-card rounded-xl p-8 border border-border text-center"
+              className="bg-card rounded-2xl overflow-hidden border border-border shadow-medium group"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <Target className="w-8 h-8 text-primary" />
+              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                {/* Placeholder para foto institucional */}
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                  <Target className="w-16 h-16 text-primary/30" />
+                </div>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
-                Missão
-              </h3>
-              <p className="text-muted-foreground">
-                Inovar, encantar e apaixonar pessoas.
-              </p>
+              <div className="p-8 text-center">
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Missão
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Inovar, encantar e apaixonar pessoas.
+                </p>
+              </div>
             </motion.div>
 
+            {/* Visão */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-card rounded-xl p-8 border border-border text-center"
+              className="bg-card rounded-2xl overflow-hidden border border-border shadow-medium group"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <Eye className="w-8 h-8 text-primary" />
+              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                {/* Placeholder para foto institucional */}
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                  <Eye className="w-16 h-16 text-primary/30" />
+                </div>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
-                Visão
-              </h3>
-              <p className="text-muted-foreground">
-                Ser a primeira escolha dos clientes.
-              </p>
+              <div className="p-8 text-center">
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Visão
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Ser a primeira escolha dos clientes.
+                </p>
+              </div>
             </motion.div>
 
+            {/* Valores */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-card rounded-xl p-8 border border-border text-center"
+              className="bg-card rounded-2xl overflow-hidden border border-border shadow-medium group"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-primary" />
+              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                {/* Placeholder para foto institucional */}
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                  <Heart className="w-16 h-16 text-primary/30" />
+                </div>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-foreground mb-4">
-                Valores
-              </h3>
-              <p className="text-muted-foreground">
-                Justos socialmente, corretos ambientalmente e viáveis economicamente.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Values Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-medium transition-all duration-300"
-              >
-                <value.icon className="w-8 h-8 text-primary mb-4" />
-                <h4 className="text-lg font-heading font-semibold text-foreground mb-2">
-                  {value.title}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {value.description}
+              <div className="p-8 text-center">
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Valores
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Justos socialmente, corretos ambientalmente e viáveis economicamente.
                 </p>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
