@@ -228,7 +228,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-primary/10 flex items-center justify-center">
                 <Shirt className="w-16 h-16 text-primary/40" />
@@ -237,8 +237,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Vestuário</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Envelopes", "Papel de Seda", "Etiquetas", "Tags"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
@@ -246,7 +246,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="cta" size="default" asChild className="w-full">
+                <Button variant="cta" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -261,7 +261,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-secondary/10 flex items-center justify-center">
                 <Footprints className="w-16 h-16 text-secondary/40" />
@@ -270,8 +270,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Calçados</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Papel de Seda", "Etiquetas", "Tags"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
@@ -279,7 +279,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="sustainability" size="default" asChild className="w-full">
+                <Button variant="sustainability" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -294,7 +294,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-primary/10 flex items-center justify-center">
                 <Sparkles className="w-16 h-16 text-primary/40" />
@@ -303,8 +303,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Cosméticos</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Envelopes", "Papel de Seda", "Etiquetas", "Tags"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
@@ -312,7 +312,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="cta" size="default" asChild className="w-full">
+                <Button variant="cta" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -327,7 +327,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.25 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-secondary/10 flex items-center justify-center">
                 <Gem className="w-16 h-16 text-secondary/40" />
@@ -336,8 +336,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Jóias / Acessórios</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Envelopes"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
@@ -345,7 +345,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="sustainability" size="default" asChild className="w-full">
+                <Button variant="sustainability" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -360,7 +360,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-primary/10 flex items-center justify-center">
                 <Cookie className="w-16 h-16 text-primary/40" />
@@ -369,8 +369,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Alimentos</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Sacos", "Papel Barreira", "Etiquetas"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
@@ -378,7 +378,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="cta" size="default" asChild className="w-full">
+                <Button variant="cta" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -393,7 +393,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.35 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
                 <img src={sectorFood} alt="Embalagens Food Service" className="w-full h-full object-cover" />
@@ -402,8 +402,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Food Service</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Sacos", "Caixas", "Guardanapos", "Papel Barreira"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
@@ -411,7 +411,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="sustainability" size="default" asChild className="w-full">
+                <Button variant="sustainability" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -426,7 +426,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
                 <img src={sectorFarmacias} alt="Embalagens Farmácias" className="w-full h-full object-cover" />
@@ -435,8 +435,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Farmácias</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Caixas", "Sacos"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
@@ -444,7 +444,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="cta" size="default" asChild className="w-full">
+                <Button variant="cta" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -459,7 +459,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.45 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
                 <img src={sectorSupermercados} alt="Embalagens Supermercados" className="w-full h-full object-cover" />
@@ -468,8 +468,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Supermercados</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Sacos", "Caixas"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-secondary flex-shrink-0" />
@@ -477,7 +477,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="sustainability" size="default" asChild className="w-full">
+                <Button variant="sustainability" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
@@ -492,7 +492,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
-              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group"
+              className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden bg-primary/10 flex items-center justify-center">
                 <Package className="w-16 h-16 text-primary/40" />
@@ -501,8 +501,8 @@ export default function HomePage() {
                   <h3 className="text-xl font-heading font-bold text-white">Outros</h3>
                 </div>
               </div>
-              <div className="p-5">
-                <div className="space-y-2 mb-5">
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="space-y-2 mb-5 flex-grow">
                   {["Sacolas", "Sacos", "Caixas", "Envelopes", "Etiquetas", "Papel de Seda", "Papel Barreira", "Tags"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
@@ -510,7 +510,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <Button variant="cta" size="default" asChild className="w-full">
+                <Button variant="cta" size="default" asChild className="w-full mt-auto">
                   <Link to="/solucoes">
                     Ver Produtos
                     <ArrowRight className="w-4 h-4" />
