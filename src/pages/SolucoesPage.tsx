@@ -18,6 +18,7 @@ import {
   CarouselPrevious 
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
 import productsCollection from "@/assets/products-collection.jpg";
 
 const finishes = [
@@ -74,9 +75,9 @@ const quickLinks = [
 ];
 
 const advantages = [
-  "Mínimo de 500 unidades por pedido",
+  "Mínimo de 5000 unidades por formato",
   "Prova de cor digital ou física",
-  "Equipe de design para auxiliar no desenvolvimento",
+  "Equipe de especialista para auxiliar no desenvolvimento",
   "Entrega em todo o Brasil",
   "Sistema JIT para reposições rápidas",
   "Certificação FSC disponível"
@@ -86,7 +87,7 @@ export default function SolucoesPage() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <section className="relative pt-28 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-muted" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -186,6 +187,13 @@ export default function SolucoesPage() {
                 align: "start",
                 loop: true,
               }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                  stopOnMouseEnter: true,
+                }),
+              ]}
               className="w-full"
             >
               <CarouselContent className="-ml-4">

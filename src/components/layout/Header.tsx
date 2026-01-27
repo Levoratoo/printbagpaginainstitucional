@@ -12,9 +12,9 @@ const navItems = [
     name: "Soluções", 
     path: "/solucoes",
     submenu: [
-      { name: "Sacolas de Papel", path: "/solucoes#sacolas" },
-      { name: "Embalagens", path: "/solucoes#embalagens" },
-      { name: "Personalização", path: "/solucoes#personalizacao" },
+      { name: "Produtos", path: "/solucoes#produtos" },
+      { name: "Acabamentos", path: "/solucoes#acabamentos" },
+      { name: "Vantagens Printbag", path: "/solucoes#vantagens" },
     ]
   },
   { name: "Loja", path: "https://loja.printbag.com.br/", external: true },
