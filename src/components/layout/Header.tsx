@@ -24,10 +24,16 @@ const navItems = [
     submenu: [
       { name: "Sustentabilidade", path: "/sustentabilidade" },
       { name: "Privacidade", path: "/privacidade" },
+    ]
+  },
+  { 
+    name: "Contato", 
+    path: "/contato",
+    submenu: [
+      { name: "Fale Conosco", path: "/contato" },
       { name: "Trabalhe Conosco", path: "/trabalhe-conosco" },
     ]
   },
-  { name: "Contato", path: "/contato" },
 ];
 
 export function Header() {

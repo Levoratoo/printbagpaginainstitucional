@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Phone, Mail, MapPin, Linkedin, Instagram, Facebook } from "lucide-react";
 import logoPrintbag from "@/assets/logo-printbag-original.png";
 
@@ -7,22 +7,42 @@ const footerLinks = {
     { name: "Sobre Nós", path: "/sobre" },
     { name: "Sustentabilidade", path: "/sustentabilidade" },
     { name: "Privacidade", path: "/privacidade" },
-    { name: "Blog", path: "/blog" },
+    { name: "Trabalhe Conosco", path: "/trabalhe-conosco" },
   ],
   solucoes: [
-    { name: "Embalagens", path: "/solucoes#embalagens" },
+    { name: "Embalagens", path: "/solucoes#produtos" },
     { name: "Acabamentos", path: "/solucoes#acabamentos" },
     { name: "Diferenciais Printbag", path: "/solucoes#diferenciais" },
   ],
   contato: [
     { name: "Fale Conosco", path: "/contato" },
     { name: "Solicite Orçamento", path: "/contato?assunto=Fazer um orçamento" },
-    { name: "Trabalhe Conosco", path: "/contato?assunto=Falar com Recursos Humanos" },
     { name: "Seja um Fornecedor", path: "/contato?assunto=Quero ser um Fornecedor" },
   ],
 };
 
 export function Footer() {
+  const navigate = useNavigate();
+
+  const handleFooterLinkClick = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    const [pathname, hash] = path.split('#');
+    const [basePath, query] = pathname.split('?');
+    
+    navigate(query ? `${basePath}?${query}` : basePath);
+    
+    setTimeout(() => {
+      if (hash) {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
     <footer className="bg-foreground text-background">
       {/* Main Footer */}
@@ -62,9 +82,9 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               {footerLinks.empresa.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                  <a href={link.path} onClick={(e) => handleFooterLinkClick(e, link.path)} className="text-background/70 hover:text-primary transition-colors cursor-pointer">
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -75,9 +95,9 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               {footerLinks.solucoes.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                  <a href={link.path} onClick={(e) => handleFooterLinkClick(e, link.path)} className="text-background/70 hover:text-primary transition-colors cursor-pointer">
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -88,9 +108,9 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               {footerLinks.contato.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-background/70 hover:text-primary transition-colors">
+                  <a href={link.path} onClick={(e) => handleFooterLinkClick(e, link.path)} className="text-background/70 hover:text-primary transition-colors cursor-pointer">
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
