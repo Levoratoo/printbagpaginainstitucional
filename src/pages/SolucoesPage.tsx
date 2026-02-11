@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
-import productsCollection from "@/assets/products-collection.jpg";
+import solucoesHero from "@/assets/solucoes-hero.jpg";
 
 const finishes = [
   {
@@ -89,15 +89,15 @@ export default function SolucoesPage() {
       {/* Hero Section */}
       <section className="relative pt-28 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={productsCollection} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+          <img src={solucoesHero} alt="Embalagens Printbag" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-primary font-medium uppercase tracking-wider text-sm"
+                className="text-primary-foreground/80 font-medium uppercase tracking-wider text-sm"
               >
                 Nossas Soluções
               </motion.span>
@@ -105,7 +105,7 @@ export default function SolucoesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground mt-4 mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mt-4 mb-6"
               >
                 Embalagens que{" "}
                 <span className="text-gradient-primary">Encantam</span>
@@ -114,7 +114,7 @@ export default function SolucoesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground mb-8"
+                className="text-lg md:text-xl text-primary-foreground/80 mb-8"
               >
                 Do conceito à entrega, oferecemos uma linha completa de soluções 
                 em embalagens personalizadas para transformar a experiência do seu cliente.
@@ -129,10 +129,10 @@ export default function SolucoesPage() {
                   <a
                     key={link.id}
                     href={link.href}
-                    className="flex items-center gap-2 px-5 py-3 bg-card border border-border rounded-xl hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                    className="flex items-center gap-2 px-5 py-3 bg-white/10 border border-white/20 rounded-xl hover:border-primary hover:bg-primary/20 transition-all duration-300 group"
                   >
                     <link.icon className="w-5 h-5 text-primary" />
-                    <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                    <span className="font-medium text-primary-foreground group-hover:text-primary transition-colors">
                       {link.label}
                     </span>
                   </a>
