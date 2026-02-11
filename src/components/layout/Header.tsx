@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoPrintbag from "@/assets/logo-printbag-original.png";
+import logoPrintbag from "@/assets/logo-printbag-original.svg";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -12,9 +12,9 @@ const navItems = [
     name: "Soluções", 
     path: "/solucoes",
     submenu: [
-      { name: "Embalagens", path: "/solucoes#produtos" },
-      { name: "Acabamentos", path: "/solucoes#acabamentos" },
-      { name: "Vantagens Printbag", path: "/solucoes#vantagens" },
+      { name: "Embalagens", path: "/solucoes", hash: "produtos" },
+      { name: "Acabamentos", path: "/solucoes", hash: "acabamentos" },
+      { name: "Vantagens Printbag", path: "/solucoes", hash: "vantagens" },
     ]
   },
   { name: "Loja", path: "https://loja.printbag.com.br/", external: true },
@@ -41,6 +41,26 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSubmenuClick = useCallback((e: React.MouseEvent, subItem: { path: string; hash?: string; name: string }) => {
+    e.preventDefault();
+    if (subItem.hash) {
+      if (location.pathname === subItem.path) {
+        const el = document.getElementById(subItem.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate(subItem.path);
+        setTimeout(() => {
+          const el = document.getElementById(subItem.hash!);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+    } else {
+      navigate(subItem.path);
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,7 +129,8 @@ export function Header() {
                       {item.submenu.map((subItem) => (
                         <a
                           key={subItem.name}
-                          href={subItem.path}
+                          href={subItem.hash ? `${subItem.path}#${subItem.hash}` : subItem.path}
+                          onClick={(e) => handleSubmenuClick(e, subItem)}
                           className="block px-4 py-2 text-sm text-card-foreground hover:bg-muted rounded-md transition-colors"
                         >
                           {subItem.name}
@@ -186,13 +207,14 @@ export function Header() {
                     {'submenu' in item && item.submenu && openSubmenu === item.name && (
                       <div className="pl-4 mt-2 flex flex-col gap-2">
                         {item.submenu.map((subItem) => (
-                          <Link
+                          <a
                             key={subItem.name}
-                            to={subItem.path}
+                            href={subItem.hash ? `${subItem.path}#${subItem.hash}` : subItem.path}
+                            onClick={(e) => handleSubmenuClick(e, subItem)}
                             className="text-muted-foreground hover:text-primary transition-colors"
                           >
                             {subItem.name}
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     )}
