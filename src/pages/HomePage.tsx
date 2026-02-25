@@ -36,9 +36,11 @@ import logoCarolinaHerrera from "@/assets/clients/carolina-herrera.png";
 import logoClaro from "@/assets/clients/claro.png";
 import logoDemocrata from "@/assets/clients/democrata.png";
 import logoLacoste from "@/assets/clients/lacoste.png";
+import logoLive from "@/assets/clients/live.png";
 import logoMadero from "@/assets/clients/madero.png";
 import logoMelissa from "@/assets/clients/melissa.png";
 import logoPilao from "@/assets/clients/pilao.png";
+import logoRaiaDrogasil from "@/assets/clients/raiadrogasil.png";
 import logoRiachuelo from "@/assets/clients/riachuelo.png";
 import logoSubway from "@/assets/clients/subway.png";
 import logoVivo from "@/assets/clients/vivo.png";
@@ -48,9 +50,11 @@ const clients = [
   { name: "Claro", logo: logoClaro },
   { name: "Democrata", logo: logoDemocrata },
   { name: "Lacoste", logo: logoLacoste },
+  { name: "Live!", logo: logoLive },
   { name: "Madero", logo: logoMadero },
   { name: "Melissa", logo: logoMelissa },
   { name: "Pilão", logo: logoPilao },
+  { name: "RaiaDrogasil", logo: logoRaiaDrogasil },
   { name: "Riachuelo", logo: logoRiachuelo },
   { name: "Subway", logo: logoSubway },
   { name: "Vivo", logo: logoVivo },
