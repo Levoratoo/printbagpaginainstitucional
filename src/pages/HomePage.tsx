@@ -63,10 +63,10 @@ const clients = [
   { name: "Melissa", logo: logoMelissa },
   { name: "Milon", logo: logoMilon },
   { name: "RaiaDrogasil", logo: logoRaiaDrogasil },
-  { name: "Riachuelo", logo: logoRiachuelo, className: "!h-7 md:!h-10" },
+  { name: "Riachuelo", logo: logoRiachuelo, className: "!h-5 md:!h-8" },
   { name: "Subway", logo: logoSubway },
   { name: "Usaflex", logo: logoUsaflex },
-  { name: "Vivo", logo: logoVivo, className: "!h-6 md:!h-9" },
+  { name: "Vivo", logo: logoVivo, className: "!h-4 md:!h-7" },
 ];
 
 const stats = [
