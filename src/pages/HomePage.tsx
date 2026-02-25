@@ -52,7 +52,6 @@ import logoVivo from "@/assets/clients/vivo.png";
 
 const clients = [
   { name: "Aramis", logo: logoAramis },
-  
   { name: "Carolina Herrera", logo: logoCarolinaHerrera },
   { name: "Claro", logo: logoClaro },
   { name: "Constance", logo: logoConstance },
@@ -64,10 +63,10 @@ const clients = [
   { name: "Melissa", logo: logoMelissa },
   { name: "Milon", logo: logoMilon },
   { name: "RaiaDrogasil", logo: logoRaiaDrogasil },
-  { name: "Riachuelo", logo: logoRiachuelo },
+  { name: "Riachuelo", logo: logoRiachuelo, className: "!h-7 md:!h-10" },
   { name: "Subway", logo: logoSubway },
   { name: "Usaflex", logo: logoUsaflex },
-  { name: "Vivo", logo: logoVivo },
+  { name: "Vivo", logo: logoVivo, className: "!h-6 md:!h-9" },
 ];
 
 const stats = [
@@ -180,7 +179,7 @@ export default function HomePage() {
                 <img 
                   src={client.logo} 
                   alt={client.name}
-                  className="h-10 md:h-14 w-auto object-contain"
+                  className={`h-10 md:h-14 w-auto object-contain ${client.className || ""}`}
                 />
               </div>
             ))}
