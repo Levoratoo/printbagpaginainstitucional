@@ -174,7 +174,7 @@ export default function HomePage() {
             {[...clients, ...clients, ...clients, ...clients].map((client, index) => (
               <div
                 key={`${client.name}-${index}`}
-                className="flex-shrink-0 mx-8 md:mx-12 grayscale hover:grayscale-0 transition-all duration-300"
+                className="flex-shrink-0 mx-8 md:mx-12 grayscale hover:grayscale-0 transition-all duration-300 flex items-center"
               >
                 <img 
                   src={client.logo} 
