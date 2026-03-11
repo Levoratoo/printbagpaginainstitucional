@@ -27,9 +27,11 @@ import heroFactory from "@/assets/hero-factory.jpg";
 import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 import cardPrintmoda from "@/assets/card-printmoda.jpg";
 import cardPrintfood from "@/assets/card-printfood.jpg";
-import sectorFarmacias from "@/assets/sector-farmacias.jpg";
-import sectorSupermercados from "@/assets/sector-supermercados.jpg";
-import sectorFood from "@/assets/sector-food.jpg";
+import sectorModa from "@/assets/sector-moda.jpg";
+import sectorSuperFarma from "@/assets/sector-supermercados-farmacias.jpg";
+import sectorCosmeticos from "@/assets/sector-cosmeticos.jpg";
+import sectorFoodService from "@/assets/sector-food-service.jpg";
+import sectorJoias from "@/assets/sector-joias.jpg";
 
 // Client logos - Alphabetical order
 import logoAramis from "@/assets/clients/aramis.png";
