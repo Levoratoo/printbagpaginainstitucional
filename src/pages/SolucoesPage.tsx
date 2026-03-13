@@ -28,6 +28,9 @@ import finishGofragem from "@/assets/finish-gofragem.jpg";
 import finishRelevoCombinado from "@/assets/finish-relevo-combinado.jpg";
 import finishImpressaoOffset from "@/assets/finish-impressao-offset.jpg";
 import finishHotStamping from "@/assets/finish-hot-stamping.jpg";
+import finishVernizTotal from "@/assets/finish-verniz-total.jpg";
+import finishLaminacaoFosca from "@/assets/finish-laminacao-fosca.jpg";
+import finishAlcasEspeciais from "@/assets/finish-alcas-especiais.jpg";
 
 const finishes = [
   {
@@ -72,7 +75,8 @@ const finishes = [
   },
   {
     title: "Laminação Fosca",
-    description: "Camada protetora com toque aveludado e acabamento elegante."
+    description: "Camada protetora com toque aveludado e acabamento elegante.",
+    image: finishLaminacaoFosca
   },
   {
     title: "Verniz Localizado",
@@ -80,11 +84,13 @@ const finishes = [
   },
   {
     title: "Verniz Total",
-    description: "Camada de verniz aplicada em toda a superfície."
+    description: "Camada de verniz aplicada em toda a superfície.",
+    image: finishVernizTotal
   },
   {
     title: "Alças Especiais",
-    description: "Variedade de opções como algodão, gorgurão, papel torcido, cetim e alças personalizadas."
+    description: "Variedade de opções como algodão, gorgurão, papel torcido, cetim e alças personalizadas.",
+    image: finishAlcasEspeciais
   }
 ];
 
@@ -211,10 +217,10 @@ export default function SolucoesPage() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.05 }}
                     >
-                      <Card className="border-border hover:border-primary/50 transition-colors group h-full">
-                        <CardContent className="p-0">
+                    <Card className="border-border hover:border-primary/50 transition-colors group h-full flex flex-col">
+                        <CardContent className="p-0 flex flex-col h-full">
                           {/* Image */}
-                          <div className="aspect-[4/3] rounded-t-lg overflow-hidden">
+                          <div className="aspect-[4/3] rounded-t-lg overflow-hidden flex-shrink-0">
                             {finish.image ? (
                               <img src={finish.image} alt={finish.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             ) : (
@@ -223,7 +229,7 @@ export default function SolucoesPage() {
                               </div>
                             )}
                           </div>
-                          <div className="p-6">
+                          <div className="p-6 flex-1 flex flex-col">
                             <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
                               {finish.title}
                             </h3>
