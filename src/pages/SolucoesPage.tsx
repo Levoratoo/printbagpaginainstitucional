@@ -233,7 +233,7 @@ export default function SolucoesPage() {
                             <h3 className="text-lg font-heading font-semibold text-foreground mb-2 h-14">
                               {finish.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-muted-foreground h-[4.5rem] overflow-hidden">
                               {finish.description}
                             </p>
                           </div>
