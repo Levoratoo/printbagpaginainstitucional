@@ -208,9 +208,9 @@ export default function SolucoesPage() {
               ]}
               className="w-full"
             >
-              <CarouselContent className="-ml-4">
+              <CarouselContent className="-ml-4 items-stretch">
                 {finishes.map((finish, index) => (
-                  <CarouselItem key={finish.title} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <CarouselItem key={finish.title} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 flex">
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -230,10 +230,10 @@ export default function SolucoesPage() {
                             )}
                           </div>
                           <div className="p-6 flex-1 flex flex-col">
-                            <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+                            <h3 className="text-lg font-heading font-semibold text-foreground mb-2 h-14">
                               {finish.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-muted-foreground h-[4.5rem] overflow-hidden">
                               {finish.description}
                             </p>
                           </div>
