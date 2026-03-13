@@ -230,7 +230,7 @@ export default function SolucoesPage() {
                             )}
                           </div>
                           <div className="p-6 flex-1 flex flex-col">
-                            <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+                            <h3 className="text-lg font-heading font-semibold text-foreground mb-2 h-14">
                               {finish.title}
                             </h3>
                             <p className="text-sm text-muted-foreground">
