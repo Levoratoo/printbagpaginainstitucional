@@ -2992,7 +2992,7 @@ export function ProductSelector() {
           {/* Selection Area */}
           <div className="space-y-4">
             {/* Breadcrumb */}
-            {step !== "segment" && (
+            {step !== "product" && (
               <FlowBreadcrumb items={buildBreadcrumbItems()} />
             )}
 
@@ -3019,10 +3019,10 @@ export function ProductSelector() {
               >
                 <CurrentIcon className="w-24 h-24 text-primary/30 mx-auto" />
                 <p className="text-muted-foreground mt-4">
-                  {step === "segment" && "Selecione um segmento para começar"}
-                  {step === "product" && "Selecione um produto"}
+                  {step === "product" && "Selecione um produto para começar"}
+                  {step === "sub-product" && "Selecione um produto"}
                   {step === "confirmation" && "Pronto para solicitar orçamento!"}
-                  {step !== "segment" && step !== "product" && step !== "confirmation" && "Configure as opções"}
+                  {step !== "product" && step !== "sub-product" && step !== "confirmation" && "Configure as opções"}
                 </p>
               </motion.div>
             </AnimatePresence>
