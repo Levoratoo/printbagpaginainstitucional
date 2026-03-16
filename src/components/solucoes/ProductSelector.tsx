@@ -84,6 +84,11 @@ import {
   papelWrapApplicationOptions
 } from "./ProductFlowData";
 
+import productSacolaSimples from "@/assets/product-sacola-simples.jpg";
+import productSacolaEnobrecida from "@/assets/product-sacola-enobrecida.jpg";
+import productSacolaKraft from "@/assets/product-sacola-kraft.jpg";
+import productSacolaBranco from "@/assets/product-sacola-branco.jpg";
+
 // Direct product categories
 const directProducts = [
   { id: "sacolas", label: "Sacolas", icon: ShoppingBag },
@@ -1657,15 +1662,19 @@ export function ProductSelector() {
               Qual tipo de sacola você procura?
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {bagTypeOptions.map((option, index) => (
-                <SelectionCard
-                  key={option.id}
-                  label={option.label}
-                  description={option.description}
-                  onClick={() => handleBagTypeSelect(option.id)}
-                  index={index}
-                />
-              ))}
+              {bagTypeOptions.map((option, index) => {
+                const bagImage = option.id === "sem-enobrecimento" ? productSacolaSimples : productSacolaEnobrecida;
+                return (
+                  <SelectionCard
+                    key={option.id}
+                    label={option.label}
+                    description={option.description}
+                    image={bagImage}
+                    onClick={() => handleBagTypeSelect(option.id)}
+                    index={index}
+                  />
+                );
+              })}
             </div>
           </motion.div>
         );
@@ -1683,15 +1692,19 @@ export function ProductSelector() {
               Qual o tipo de papel?
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              {bagPaperOptionsSimple.map((option, index) => (
-                <SelectionCard
-                  key={option.id}
-                  label={option.label}
-                  description={option.description}
-                  onClick={() => handleBagPaperSimpleSelect(option.id)}
-                  index={index}
-                />
-              ))}
+              {bagPaperOptionsSimple.map((option, index) => {
+                const paperImage = option.id === "kraft" ? productSacolaKraft : productSacolaBranco;
+                return (
+                  <SelectionCard
+                    key={option.id}
+                    label={option.label}
+                    description={option.description}
+                    image={paperImage}
+                    onClick={() => handleBagPaperSimpleSelect(option.id)}
+                    index={index}
+                  />
+                );
+              })}
             </div>
           </motion.div>
         );
