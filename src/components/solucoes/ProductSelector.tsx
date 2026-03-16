@@ -1069,7 +1069,6 @@ export function ProductSelector() {
       const applicationLabel = sacoApplicationOptions.find(a => a.id === selection.sacoApplication)?.label;
       if (applicationLabel) items.push({ label: "Aplicação", value: applicationLabel });
     }
-    }
 
     // Papel barreira summary
     if (selection.product === "papel-barreira") {
