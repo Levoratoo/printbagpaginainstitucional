@@ -1129,23 +1129,28 @@ export function ProductSelector() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const currentStep = step as any;
     
-    // Always start with Segmentos
-    items.push({ label: "Segmentos", onClick: handleBackToSegment });
+    // Always start with Produtos
+    items.push({ label: "Produtos", onClick: handleBackToProducts });
 
-    // Add segment if selected
-    if (selection.segment) {
-      const segmentLabel = segments.find(s => s.id === selection.segment)?.label || "";
-      const isCurrentSegment = currentStep === "product" || !selection.product;
+    // Add category if from sub-products
+    if (selection.segment === "itens-adicionais" || selection.segment === "itens-adicionais-food") {
+      const categoryLabel = selection.segment === "itens-adicionais" ? "Itens Adicionais" : "Itens Adicionais para Food";
       items.push({ 
-        label: segmentLabel, 
-        onClick: selection.product ? handleBackToProduct : undefined,
-        isCurrent: isCurrentSegment && !selection.product
+        label: categoryLabel, 
+        onClick: selection.product ? handleBackToSubProduct : undefined,
+        isCurrent: !selection.product
       });
     }
 
     // Add product if selected
     if (selection.product) {
-      const productLabel = currentProducts.find(p => p.id === selection.product)?.label || "";
+      const allProducts = [...directProducts, ...subProductsAdicionais, ...subProductsFood];
+      const productLabel = allProducts.find(p => p.id === selection.product)?.label || "";
+      
+      // Determine the back handler for product
+      const backToProduct = (selection.segment === "itens-adicionais" || selection.segment === "itens-adicionais-food") 
+        ? handleBackToSubProduct 
+        : handleBackToProducts;
       
       // Determine if we need more items after product
       const hasMoreSteps = currentStep !== "bag-type" && currentStep !== "box-type" && currentStep !== "envelope-type" && 
@@ -1155,7 +1160,7 @@ export function ProductSelector() {
       
       items.push({ 
         label: productLabel, 
-        onClick: hasMoreSteps ? handleBackToProduct : undefined,
+        onClick: hasMoreSteps ? backToProduct : undefined,
         isCurrent: !hasMoreSteps
       });
     }
