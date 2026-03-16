@@ -1554,7 +1554,7 @@ export function ProductSelector() {
     }
 
     return items;
-  }, [selection, step, currentProducts, isFoodService, handleBackToSegment, handleBackToProduct, 
+  }, [selection, step, handleBackToProducts, handleBackToSubProduct, 
       handleBackToBagType, handleBackToBagFinishing, handleBackToBagPaper,
       handleBackToBoxType, handleBackToBoxStructure, handleBackToBoxPaper, handleBackToBoxFinishing,
       handleBackToEnvelopeType, handleBackToEnvelopeFormat, handleBackToEnvelopePaper, handleBackToEnvelopeFinishing,
