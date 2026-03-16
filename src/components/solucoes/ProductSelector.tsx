@@ -2631,7 +2631,7 @@ export function ProductSelector() {
               Qual material do saco?
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              {(isFoodService ? sacoMaterialOptionsFoodService : sacoMaterialOptions).map((option, index) => (
+              {sacoMaterialOptions.map((option, index) => (
                 <SelectionCard
                   key={option.id}
                   label={option.label}
