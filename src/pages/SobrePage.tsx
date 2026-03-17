@@ -66,7 +66,7 @@ export default function SobrePage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={sobreHero} alt="Fábrica Printbag ao pôr do sol" className="w-full h-full object-cover" />
+          <img loading="lazy" src={sobreHero} alt="Fábrica Printbag ao pôr do sol" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container mx-auto px-4 relative z-10">

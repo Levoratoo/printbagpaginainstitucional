@@ -223,7 +223,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorModa} alt="Embalagens Moda" className="w-full h-full object-cover" />
+                <img src={sectorModa} loading="lazy" alt="Embalagens Moda" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Moda</h3>
@@ -248,7 +248,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorSuperFarma} alt="Embalagens Supermercados e Farmácias" className="w-full h-full object-cover" />
+                <img src={sectorSuperFarma} loading="lazy" alt="Embalagens Supermercados e Farmácias" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Supermercados/Farmácias</h3>
@@ -273,7 +273,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorCosmeticos} alt="Embalagens Cosméticos" className="w-full h-full object-cover" />
+                <img src={sectorCosmeticos} loading="lazy" alt="Embalagens Cosméticos" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Cosméticos</h3>
@@ -298,7 +298,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorFoodService} alt="Embalagens Food Service" className="w-full h-full object-cover" />
+                <img src={sectorFoodService} loading="lazy" alt="Embalagens Food Service" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Food Service</h3>
@@ -323,7 +323,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorJoias} alt="Embalagens Jóias e Acessórios" className="w-full h-full object-cover" />
+                <img src={sectorJoias} loading="lazy" alt="Embalagens Jóias e Acessórios" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Jóias / Acessórios</h3>
@@ -348,7 +348,7 @@ export default function HomePage() {
               className="bg-card rounded-2xl shadow-medium overflow-hidden border border-border hover:shadow-strong transition-shadow duration-300 group flex flex-col"
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={sectorAtacado} alt="Embalagens Atacado e Distribuidores" className="w-full h-full object-cover" />
+                <img src={sectorAtacado} loading="lazy" alt="Embalagens Atacado e Distribuidores" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-xl font-heading font-bold text-white">Atacado/Distribuidores</h3>
@@ -416,7 +416,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300">
               <div className="w-20 h-20 flex items-center justify-center mb-5">
-                <img src={seloFsc} alt="Selo FSC" className="w-full h-full object-contain" />
+                <img src={seloFsc} loading="lazy" alt="Selo FSC" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo FSC</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -428,7 +428,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300">
               <div className="w-20 h-20 flex items-center justify-center mb-5">
-                <img src={seloEnergia} alt="Selo Energia Renovável" className="w-full h-full object-contain" />
+                <img src={seloEnergia} loading="lazy" alt="Selo Energia Renovável" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo Energia Renovável</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -440,7 +440,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300">
               <div className="w-20 h-20 flex items-center justify-center mb-5">
-                <img src={seloAbvtex} alt="Certificado ABVTEX" className="w-full h-full object-contain" />
+                <img src={seloAbvtex} loading="lazy" alt="Certificado ABVTEX" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Certificado ABVTEX</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -452,7 +452,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300">
               <div className="w-20 h-20 flex items-center justify-center mb-5">
-                <img src={seloTwoSides} alt="Selo Two Sides" className="w-full h-full object-contain" />
+                <img src={seloTwoSides} loading="lazy" alt="Selo Two Sides" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo Two Sides</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
