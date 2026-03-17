@@ -110,7 +110,7 @@ export default function SobrePage() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className=""
             >
               <div className="rounded-2xl overflow-hidden shadow-strong">
                 <img 
@@ -118,11 +118,6 @@ export default function SobrePage() {
                   alt="Fábrica Printbag - Vista aérea" 
                   className="w-full h-auto"
                 />
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-6 rounded-xl shadow-glow-primary">
-                <Factory className="w-8 h-8 mb-2" />
-                <div className="text-2xl font-heading font-bold">10.000 m²</div>
-                <div className="text-sm text-primary-foreground/80">Área Fabril</div>
               </div>
             </motion.div>
 
@@ -153,6 +148,11 @@ export default function SobrePage() {
           </div>
         </div>
       </section>
+
+      {/* Divider */}
+      <div className="container mx-auto px-4">
+        <div className="h-px bg-border" />
+      </div>
 
       {/* Timeline */}
       <section className="py-20 md:py-28">
