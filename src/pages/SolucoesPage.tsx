@@ -31,6 +31,7 @@ import finishHotStamping from "@/assets/finish-hot-stamping.jpg";
 import finishVernizTotal from "@/assets/finish-verniz-total.jpg";
 import finishLaminacaoFosca from "@/assets/finish-laminacao-fosca.jpg";
 import finishAlcasEspeciais from "@/assets/finish-alcas-especiais.jpg";
+import finishVernizLocalizado from "@/assets/finish-bag-verniz-localizado.jpg";
 
 const finishes = [
   {
