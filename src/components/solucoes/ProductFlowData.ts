@@ -142,7 +142,7 @@ export const boxExtraOptions = [
 export const envelopeTypeOptions = [
   { 
     id: "simples", 
-    label: "Envelope simples",
+    label: "Envelope padrão",
     description: "Funcional, econômico e ideal para alto volume."
   },
   { 
