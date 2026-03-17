@@ -105,30 +105,6 @@ export default function ContatoPage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 bg-muted" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-primary font-medium uppercase tracking-wider text-sm"
-            >
-              Fale Conosco
-            </motion.span>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground"
-            >
-              Entre em contato com nossa equipe e descubra como podemos 
-              transformar suas ideias em embalagens extraordinárias.
-            </motion.p>
-          </div>
-        </div>
-      </section>
 
       {/* Form Section */}
       <section className="py-20 md:py-28">
