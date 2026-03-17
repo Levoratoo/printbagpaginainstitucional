@@ -90,6 +90,13 @@ import productSacolaSimples from "@/assets/product-sacola-simples.jpg";
 import productSacolaEnobrecida from "@/assets/product-sacola-enobrecida.jpg";
 import productSacolaKraft from "@/assets/product-sacola-kraft.jpg";
 import productSacolaBranco from "@/assets/product-sacola-branco.jpg";
+import productSacolas from "@/assets/product-sacolas.jpg";
+import handleTorcida from "@/assets/handle-torcida.jpg";
+import handleFlat from "@/assets/handle-flat.jpg";
+import handleSaoFrancisco from "@/assets/handle-sao-francisco.jpg";
+import handleGorgurao from "@/assets/handle-gorgurao.jpg";
+import handleDalva from "@/assets/handle-dalva.jpg";
+import handleSintetica from "@/assets/handle-sintetica.jpg";
 
 // Direct product categories
 const directProducts = [
