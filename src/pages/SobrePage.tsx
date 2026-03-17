@@ -149,6 +149,11 @@ export default function SobrePage() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="container mx-auto px-4">
+        <div className="h-px bg-border" />
+      </div>
+
       {/* Timeline */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
