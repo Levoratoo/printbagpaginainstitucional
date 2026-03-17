@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface SelectionCardProps {
   icon?: React.ComponentType<{ className?: string }>;
   image?: string;
+  imageClassName?: string;
   label: string;
   description?: string;
   isSelected?: boolean;
@@ -16,6 +17,7 @@ interface SelectionCardProps {
 export function SelectionCard({
   icon: Icon,
   image,
+  imageClassName,
   label,
   description,
   isSelected = false,
@@ -44,7 +46,7 @@ export function SelectionCard({
       )}
       {image && (
         <div className="w-full aspect-[4/3] overflow-hidden">
-          <img src={image} alt={label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <img src={image} alt={label} className={cn("w-full h-full object-cover group-hover:scale-105 transition-transform duration-500", imageClassName)} />
         </div>
       )}
       <div className={cn("flex flex-col items-center gap-3", image ? "p-4" : "")}>

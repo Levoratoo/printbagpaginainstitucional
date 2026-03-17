@@ -107,6 +107,10 @@ const handleImages: Record<string, string> = {
   "sintetica": handleSintetica,
 };
 
+const handleImageClasses: Record<string, string> = {
+  "flat": "object-[center_30%]",
+};
+
 // Direct product categories
 const directProducts = [
   { id: "sacolas", label: "Sacolas", icon: ShoppingBag, image: productSacolas },
@@ -1747,6 +1751,7 @@ export function ProductSelector() {
                   label={option.label}
                   description={option.description}
                   image={handleImages[option.id]}
+                  imageClassName={handleImageClasses[option.id]}
                   onClick={() => handleBagHandleSimpleSelect(option.id)}
                   index={index}
                 />
@@ -1837,6 +1842,7 @@ export function ProductSelector() {
                   label={option.label}
                   description={option.description}
                   image={handleImages[option.id]}
+                  imageClassName={handleImageClasses[option.id]}
                   onClick={() => handleBagHandlePremiumSelect(option.id)}
                   index={index}
                 />
