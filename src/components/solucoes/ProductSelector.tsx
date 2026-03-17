@@ -90,10 +90,26 @@ import productSacolaSimples from "@/assets/product-sacola-simples.jpg";
 import productSacolaEnobrecida from "@/assets/product-sacola-enobrecida.jpg";
 import productSacolaKraft from "@/assets/product-sacola-kraft.jpg";
 import productSacolaBranco from "@/assets/product-sacola-branco.jpg";
+import productSacolas from "@/assets/product-sacolas.jpg";
+import handleTorcida from "@/assets/handle-torcida.jpg";
+import handleFlat from "@/assets/handle-flat.jpg";
+import handleSaoFrancisco from "@/assets/handle-sao-francisco.jpg";
+import handleGorgurao from "@/assets/handle-gorgurao.jpg";
+import handleDalva from "@/assets/handle-dalva.jpg";
+import handleSintetica from "@/assets/handle-sintetica.jpg";
+
+const handleImages: Record<string, string> = {
+  "torcida": handleTorcida,
+  "flat": handleFlat,
+  "sao-francisco": handleSaoFrancisco,
+  "gorgurao": handleGorgurao,
+  "dalva": handleDalva,
+  "sintetica": handleSintetica,
+};
 
 // Direct product categories
 const directProducts = [
-  { id: "sacolas", label: "Sacolas", icon: ShoppingBag },
+  { id: "sacolas", label: "Sacolas", icon: ShoppingBag, image: productSacolas },
   { id: "envelopes", label: "Envelopes", icon: FileText },
   { id: "caixas", label: "Caixas", icon: Box },
   { id: "itens-adicionais", label: "Itens Adicionais", icon: Tag },
@@ -1608,7 +1624,8 @@ export function ProductSelector() {
               {directProducts.map((product, index) => (
                 <SelectionCard
                   key={product.id}
-                  icon={product.icon}
+                  icon={product.image ? undefined : product.icon}
+                  image={product.image}
                   label={product.label}
                   onClick={() => handleProductSelect(product.id)}
                   index={index}
@@ -1723,12 +1740,13 @@ export function ProductSelector() {
             <h3 className="text-xl font-heading font-semibold text-foreground">
               Qual tipo de alça você prefere?
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {bagHandleOptionsSimple.map((option, index) => (
                 <SelectionCard
                   key={option.id}
                   label={option.label}
                   description={option.description}
+                  image={handleImages[option.id]}
                   onClick={() => handleBagHandleSimpleSelect(option.id)}
                   index={index}
                 />
@@ -1812,12 +1830,13 @@ export function ProductSelector() {
             <h3 className="text-xl font-heading font-semibold text-foreground">
               Qual tipo de alça você prefere?
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {bagHandleOptionsPremium.map((option, index) => (
                 <SelectionCard
                   key={option.id}
                   label={option.label}
                   description={option.description}
+                  image={handleImages[option.id]}
                   onClick={() => handleBagHandlePremiumSelect(option.id)}
                   index={index}
                 />

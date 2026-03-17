@@ -39,18 +39,22 @@ export const bagPaperOptionsPremium = [
 
 // Handle type options for simple bags (with descriptions)
 export const bagHandleOptionsSimple = [
-  { id: "papel-torcido", label: "Papel torcido", description: "Econômica e funcional, ideal para alto volume." },
-  { id: "cordao", label: "Cordão", description: "Elegante e resistente, agrega valor à embalagem." },
-  { id: "fita", label: "Fita", description: "Sofisticada e delicada, perfeita para presentes." },
-  { id: "flat", label: "Flat", description: "Visual moderno e minimalista." }
+  { id: "torcida", label: "Torcida", description: "Econômica e funcional, ideal para alto volume." },
+  { id: "flat", label: "Flat", description: "Visual moderno e minimalista." },
+  { id: "sao-francisco", label: "São Francisco", description: "Alça clássica de cordão torcido com acabamento refinado." },
+  { id: "gorgurao", label: "Gorgurão", description: "Fita de tecido canelado, resistente e elegante." },
+  { id: "dalva", label: "Dalva", description: "Alça achatada em papel resistente com toque artesanal." },
+  { id: "sintetica", label: "Sintética", description: "Cordão sintético durável com visual sofisticado." }
 ];
 
 // Handle type options for premium bags (with descriptions)
 export const bagHandleOptionsPremium = [
-  { id: "cordao", label: "Cordão", description: "Elegante e resistente, agrega valor à embalagem." },
-  { id: "fita", label: "Fita", description: "Sofisticada e delicada, perfeita para presentes." },
-  { id: "papel", label: "Papel", description: "Acabamento uniforme e econômico." },
-  { id: "flat", label: "Flat", description: "Visual moderno e minimalista." }
+  { id: "torcida", label: "Torcida", description: "Econômica e funcional, ideal para alto volume." },
+  { id: "flat", label: "Flat", description: "Visual moderno e minimalista." },
+  { id: "sao-francisco", label: "São Francisco", description: "Alça clássica de cordão torcido com acabamento refinado." },
+  { id: "gorgurao", label: "Gorgurão", description: "Fita de tecido canelado, resistente e elegante." },
+  { id: "dalva", label: "Dalva", description: "Alça achatada em papel resistente com toque artesanal." },
+  { id: "sintetica", label: "Sintética", description: "Cordão sintético durável com visual sofisticado." }
 ];
 
 // Finishing options for premium bags (multi-select) (with descriptions)
