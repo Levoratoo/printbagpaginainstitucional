@@ -17,6 +17,7 @@ interface SelectionCardProps {
 export function SelectionCard({
   icon: Icon,
   image,
+  imageClassName,
   label,
   description,
   isSelected = false,
