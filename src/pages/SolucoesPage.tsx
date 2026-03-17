@@ -219,7 +219,7 @@ export default function SolucoesPage() {
                           {/* Image */}
                           <div className="aspect-[4/3] rounded-t-lg overflow-hidden flex-shrink-0">
                             {finish.image ? (
-                              <img src={finish.image} alt={finish.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                              <img src={finish.image} alt={finish.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             ) : (
                               <div className="w-full h-full bg-muted-foreground/10 flex items-center justify-center">
                                 <Sparkles className="w-12 h-12 text-muted-foreground/30" />
