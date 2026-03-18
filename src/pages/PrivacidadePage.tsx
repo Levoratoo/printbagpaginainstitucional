@@ -6,7 +6,7 @@ export default function PrivacidadePage() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary to-primary/80">
+      <section className="relative pt-32 pb-20 bg-gradient-to-br from-primary to-primary/80">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
