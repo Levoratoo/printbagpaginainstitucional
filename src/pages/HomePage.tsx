@@ -444,7 +444,7 @@ export default function HomePage() {
                 <img src={seloAbvtex} loading="lazy" alt="Certificado ABVTEX" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Certificado ABVTEX</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
+              <p className="text-muted-foreground text-sm leading-relaxed text-left">
                 Buscamos ações de boas práticas socioambientais e de governança no ambiente corporativo.
               </p>
             </motion.div>
