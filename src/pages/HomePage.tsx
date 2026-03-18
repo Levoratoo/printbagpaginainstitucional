@@ -23,6 +23,7 @@ import seloFsc from "@/assets/selo-fsc.png";
 import seloEnergia from "@/assets/selo-energia-renovavel.png";
 import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
+import premioExcelencia from "@/assets/premio-excelencia-grafica.png";
 import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 import cardPrintmoda from "@/assets/card-printmoda.jpg";
 import cardPrintfood from "@/assets/card-printfood.jpg";
