@@ -23,6 +23,7 @@ import seloFsc from "@/assets/selo-fsc.png";
 import seloEnergia from "@/assets/selo-energia-renovavel.png";
 import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
+import premioExcelencia from "@/assets/premio-excelencia-grafica.png";
 import sustainabilityHero from "@/assets/sustainability-hero.jpg";
 import cardPrintmoda from "@/assets/card-printmoda.jpg";
 import cardPrintfood from "@/assets/card-printfood.jpg";
@@ -463,8 +464,8 @@ export default function HomePage() {
             {/* Certificado de Excelência Gráfica */}
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                <Award className="w-7 h-7 text-primary" />
+              <div className="w-full flex justify-center mb-5">
+                <img src={premioExcelencia} alt="Prêmio de Excelência Gráfica Fernando Pini" className="h-32 w-auto object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Excelência Gráfica</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
