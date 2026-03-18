@@ -14,10 +14,6 @@ export default function PrivacidadePage() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 bg-primary-foreground/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Shield className="w-4 h-4 text-primary-foreground" />
-              <span className="text-primary-foreground text-sm font-medium">Política de Privacidade</span>
-            </div>
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
               Política de Privacidade
             </h1>
