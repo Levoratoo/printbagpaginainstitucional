@@ -420,7 +420,7 @@ export default function HomePage() {
                 <img src={seloFsc} loading="lazy" alt="Selo FSC" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo FSC</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
                 Utilizamos matéria-prima certificada e originária de madeira de reflorestamento.
               </p>
             </motion.div>
@@ -432,7 +432,7 @@ export default function HomePage() {
                 <img src={seloEnergia} loading="lazy" alt="Selo Energia Renovável" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo Energia Renovável</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
                 Reduzimos nossa emissão de gases de efeito estufa a partir da geração de energia renovável.
               </p>
             </motion.div>
@@ -444,7 +444,7 @@ export default function HomePage() {
                 <img src={seloAbvtex} loading="lazy" alt="Certificado ABVTEX" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Certificado ABVTEX</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
                 Buscamos ações de boas práticas socioambientais e de governança no ambiente corporativo.
               </p>
             </motion.div>
@@ -456,7 +456,7 @@ export default function HomePage() {
                 <img src={seloTwoSides} loading="lazy" alt="Selo Two Sides" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Selo Two Sides</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
                 Iniciativa global que certifica empresas comprometidas com a sustentabilidade do papel como material renovável, reciclável e biodegradável.
               </p>
             </motion.div>
@@ -468,7 +468,7 @@ export default function HomePage() {
                 <img src={premioExcelencia} alt="Prêmio de Excelência Gráfica Fernando Pini" className="max-h-full max-w-full object-contain" />
               </div>
               <h3 className="text-lg font-heading font-bold text-foreground mb-3">Excelência Gráfica</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
                 Excelência reconhecida com múltiplos títulos no Prêmio Fernando Pini.
               </p>
             </motion.div>
