@@ -129,7 +129,7 @@ export default function HomePage() {
               className="text-lg md:text-xl text-primary-foreground mb-8 max-w-2xl"
             >
               Há mais de 40 anos desenvolvendo soluções personalizadas em sacolas e embalagens 
-              para as maiores marcas do Brasil. Qualidade, sustentabilidade e tecnologia.
+              para as maiores marcas do Brasil. Com qualidade, sustentabilidade e tecnologia.
             </motion.p>
 
             <motion.div
