@@ -145,9 +145,9 @@ const directProducts = [
   { id: "sacolas", label: "Sacolas", icon: ShoppingBag, image: productSacolas },
   { id: "envelopes", label: "Envelopes", icon: FileText, image: productEnvelopes },
   { id: "caixas", label: "Caixas", icon: Box, image: productCaixas },
-  { id: "itens-adicionais", label: "Itens Adicionais", icon: Tag },
+  { id: "itens-adicionais", label: "Itens Adicionais", icon: Tag, image: productItensAdicionais },
   { id: "sacos", label: "Sacos", icon: Package, image: productSacos },
-  { id: "itens-adicionais-food", label: "Itens Adicionais para Food", icon: Utensils }
+  { id: "itens-adicionais-food", label: "Itens Adicionais para Food", icon: Utensils, image: productItensFood }
 ];
 
 // Sub-products for "Itens Adicionais"
