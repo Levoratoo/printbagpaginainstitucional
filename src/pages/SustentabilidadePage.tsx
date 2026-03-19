@@ -21,11 +21,37 @@ import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
 
 const impactNumbers = [
-  { value: "63t", label: "De papel reciclado por mês" },
-  { value: "104t", label: "De CO₂ deixamos de emitir por mês" },
-  { value: "4753", label: "Equivalente a novas árvores plantadas/mês" },
-  { value: "22", label: "Carros retirados de circulação por ano" }
+  { value: 127, suffix: "t", label: "De papel reciclado em 2026" },
+  { value: 209, suffix: "t", label: "De CO₂ não emitidas em 2026" },
+  { value: 9506, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
+  { value: 45, suffix: "", label: "Carros retirados de circulação por ano" }
 ];
+
+function CountUp({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return <span ref={ref}>{count.toLocaleString("pt-BR")}{suffix}</span>;
+}
 
 const certifications = [
   {
