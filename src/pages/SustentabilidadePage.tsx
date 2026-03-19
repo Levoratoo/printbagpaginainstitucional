@@ -171,7 +171,7 @@ export default function SustentabilidadePage() {
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
                 Enquanto outras fabricantes utilizam plástico e materiais sintéticos, 
-                a Printbag escolheu trabalhar exclusivamente com papel — um material 
+                a Printbag escolheu trabalhar exclusivamente com papel, um material 
                 natural, renovável e totalmente reciclável. Todos os nossos papéis são 
                 certificados pelo <strong className="text-foreground">Selo FSC</strong>, 
                 que garante a procedência legal e o manejo responsável das florestas.
@@ -320,48 +320,8 @@ export default function SustentabilidadePage() {
         </div>
       </section>
 
-      {/* Two Sides Partnership */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-card rounded-2xl p-8 md:p-12 border border-border"
-            >
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="w-32 h-32 flex-shrink-0 flex items-center justify-center">
-                  <img 
-                    src={seloTwoSides} 
-                    alt="Two Sides" 
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-                <div>
-                  <span className="text-secondary font-medium uppercase tracking-wider text-sm">
-                    Parceria
-                  </span>
-                  <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mt-2 mb-4">
-                    Two Sides — Contra o Greenwashing
-                  </h2>
-                  <p className="text-muted-foreground mb-4">
-                    A Two Sides é uma instituição sem fins lucrativos que surgiu da iniciativa 
-                    de empresas da cadeia de suprimentos da comunicação gráfica e de embalagens 
-                    celulósicas. Seu objetivo é, em conjunto com os parceiros, promover 
-                    sustentabilidade na cadeia e divulgar informações ambientais sobre o uso do 
-                    papel, denunciando atividades de greenwashing.
-                  </p>
-                  <p className="text-muted-foreground">
-                    A Printbag é parceira da Two Sides, reafirmando nosso compromisso com a 
-                    transparência e a verdade sobre o impacto ambiental do papel.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+
+
 
       {/* ESG Section */}
       <section className="py-20 md:py-28 bg-muted">
