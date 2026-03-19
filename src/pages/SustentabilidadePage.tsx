@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { 
   Leaf, 
