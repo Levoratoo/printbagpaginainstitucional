@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { 
   Leaf, 
@@ -20,11 +21,37 @@ import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
 
 const impactNumbers = [
-  { value: "63t", label: "De papel reciclado por mês" },
-  { value: "104t", label: "De CO₂ deixamos de emitir por mês" },
-  { value: "4753", label: "Equivalente a novas árvores plantadas/mês" },
-  { value: "22", label: "Carros retirados de circulação por ano" }
+  { value: 127, suffix: "t", label: "De papel reciclado em 2026" },
+  { value: 209, suffix: "t", label: "De CO₂ não emitidas em 2026" },
+  { value: 9506, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
+  { value: 45, suffix: "", label: "Carros retirados de circulação por ano" }
 ];
+
+function CountUp({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return <span ref={ref}>{count.toLocaleString("pt-BR")}{suffix}</span>;
+}
 
 const certifications = [
   {
@@ -134,6 +161,14 @@ export default function SustentabilidadePage() {
       {/* Impact Numbers */}
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-secondary-foreground/60 text-sm font-medium uppercase tracking-wider mb-8"
+          >
+            Dados acumulados — Janeiro e Fevereiro de 2026
+          </motion.p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {impactNumbers.map((stat, index) => (
               <motion.div
@@ -145,7 +180,7 @@ export default function SustentabilidadePage() {
                 className="text-center"
               >
                 <div className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-secondary-foreground mb-2">
-                  {stat.value}
+                  <CountUp value={stat.value} suffix={stat.suffix} />
                 </div>
                 <div className="text-secondary-foreground/70 text-sm md:text-base">{stat.label}</div>
               </motion.div>
