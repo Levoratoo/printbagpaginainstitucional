@@ -22,7 +22,7 @@ import seloTwoSides from "@/assets/selo-two-sides.png";
 
 const impactNumbers = [
   { value: 127, suffix: "t", label: "De papel reciclado em 2026" },
-  { value: 209, suffix: "t", label: "De CO₂ não emitidas em 2026" },
+  { value: 205, suffix: "t", label: "De CO₂ não emitidas em 2026" },
   { value: 9506, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
   { value: 45, suffix: "", label: "Carros retirados de circulação por ano" }
 ];
