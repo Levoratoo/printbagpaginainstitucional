@@ -141,7 +141,7 @@ export default function SustentabilidadePage() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-secondary-foreground mb-6"
             >
-              A Única Grande Empresa de Sacolas do Brasil{" "}
+              Uma das Poucas Grandes Empresas de Sacolas do Brasil{" "}
               <span className="text-primary-foreground">100% Papel</span>
             </motion.h1>
             <motion.p
