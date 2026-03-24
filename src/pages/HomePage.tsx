@@ -75,7 +75,6 @@ const stats = [
   { value: "40+", label: "Anos de Experiência" },
   { value: "500+", label: "Marcas Atendidas" },
   { value: "+15 mil", label: "Pontos de Venda Atendidos" },
-  { value: "+100M", label: "Embalagens/Ano" },
 ];
 
 export default function HomePage() {
