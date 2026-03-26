@@ -15,12 +15,16 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Vite BASE_URL ends with "/"; React Router basename must not (see RR docs).
+const routerBasename =
+  import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <BrowserRouter basename={routerBasename}>
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
