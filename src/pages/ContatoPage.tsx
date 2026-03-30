@@ -68,28 +68,66 @@ export default function ContatoPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const getRecipientEmail = (assunto: string): string => {
+    switch (assunto) {
+      case "Falar com Recursos Humanos":
+        return "rh@printbag.com.br";
+      case "Quero ser um Fornecedor":
+        return "compras@printbag.com.br";
+      case "Sugestão ou Reclamação":
+        return "sac@printbag.com.br";
+      default:
+        return "marketing@printbag.com.br";
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const id = crypto.randomUUID();
+      const recipientEmail = getRecipientEmail(formData.assunto);
 
-    toast.success("Mensagem enviada com sucesso!", {
-      description: "Nossa equipe entrará em contato em breve."
-    });
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-form-notification",
+          recipientEmail,
+          idempotencyKey: `contact-${id}`,
+          templateData: {
+            nome: formData.nome,
+            empresa: formData.empresa || undefined,
+            assunto: formData.assunto,
+            email: formData.email,
+            telefone: formData.telefone,
+            tipoEmbalagem: formData.tipoEmbalagem || undefined,
+            volume: formData.volume || undefined,
+            mensagem: formData.mensagem || undefined,
+          },
+        },
+      });
 
-    setFormData({
-      nome: "",
-      empresa: "",
-      assunto: "",
-      email: "",
-      telefone: "",
-      tipoEmbalagem: "",
-      volume: "",
-      mensagem: ""
-    });
-    setIsSubmitting(false);
+      toast.success("Mensagem enviada com sucesso!", {
+        description: "Nossa equipe entrará em contato em breve.",
+      });
+
+      setFormData({
+        nome: "",
+        empresa: "",
+        assunto: "",
+        email: "",
+        telefone: "",
+        tipoEmbalagem: "",
+        volume: "",
+        mensagem: "",
+      });
+    } catch {
+      toast.error("Erro ao enviar mensagem.", {
+        description: "Tente novamente mais tarde.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isOrcamento = formData.assunto === "Fazer um orçamento";
