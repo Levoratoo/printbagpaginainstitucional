@@ -31,6 +31,7 @@ const App = () => (
           <Route path="/contato" element={<ContatoPage />} />
           <Route path="/privacidade" element={<PrivacidadePage />} />
           <Route path="/trabalhe-conosco" element={<TrabalheConoscoPage />} />
+          <Route path="/unsubscribe" element={<UnsubscribePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
