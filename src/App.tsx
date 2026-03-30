@@ -15,16 +15,20 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Vite BASE_URL ends with "/"; React Router basename must not (see RR docs).
-const routerBasename =
-  import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+/** GitHub Pages project URL uses /repo/; custom domain is served at /. */
+function getRouterBasename(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  return window.location.pathname.startsWith("/printbag-institucional")
+    ? "/printbag-institucional"
+    : undefined;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename={routerBasename}>
+      <BrowserRouter basename={getRouterBasename()}>
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />

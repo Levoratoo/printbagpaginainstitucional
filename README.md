@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-O projeto usa `base` do Vite para GitHub Pages (`/printbag-institucional/`). Em desenvolvimento, abra a URL que o terminal indicar (incluindo esse prefixo).
+O build usa **`base` relativo (`./`)** para o mesmo `dist` funcionar na **raiz do domínio** (`https://printbag.com.br/`) e em **`https://<user>.github.io/printbag-institucional/`**. Em desenvolvimento, use a URL raiz que o Vite mostrar (ex.: `http://localhost:5173/` ou `http://192.168.1.104:3017/`), não um subpath fixo.
 
 ## Build
 

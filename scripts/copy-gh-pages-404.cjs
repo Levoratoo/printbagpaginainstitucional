@@ -1,6 +1,6 @@
 /**
  * GitHub Pages serves 404.html for unknown paths. Copy the SPA shell so
- * client-side routes work on refresh (e.g. /printbag-institucional/sobre).
+ * client-side routes work on refresh (e.g. /sobre on custom domain or /repo/sobre on github.io).
  */
 const fs = require("fs");
 const path = require("path");
