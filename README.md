@@ -1,73 +1,41 @@
-# Welcome to your Lovable project
+# Printbag — Site institucional
 
-## Project info
+Site da **Printbag**, fabricante de embalagens e sacolas, com páginas de apresentação da empresa, soluções (produtos e acabamentos), sustentabilidade, privacidade e contato.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Stack
 
-## How can I edit this code?
+- Vite 5
+- React 18 + TypeScript
+- Tailwind CSS e shadcn/ui (Radix)
+- React Router, Framer Motion, TanStack Query
 
-There are several ways of editing your application.
+## Desenvolvimento local
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requer Node.js (recomendado 18+).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+O projeto usa `base` do Vite para GitHub Pages (`/printbag-institucional/`). Em desenvolvimento, abra a URL que o terminal indicar (incluindo esse prefixo).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build
 
-**Use GitHub Codespaces**
+```sh
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Gera a pasta `dist/` e copia `404.html` para fallback de SPA no GitHub Pages.
 
-## What technologies are used for this project?
+## Publicação (GitHub Pages)
 
-This project is built with:
+O repositório publica o conteúdo de `dist/` na branch **`gh-pages`** (workflow em `.github/workflows/deploy-gh-pages.yml` ou deploy manual equivalente).
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+No GitHub: **Settings → Pages** — fonte **Deploy from a branch**, branch **`gh-pages`**, pasta **`/(root)`**.
 
-## How can I deploy this project?
+Site público: `https://levoratoo.github.io/printbag-institucional/`
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Licença
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Uso interno / conforme acordo do projeto.
