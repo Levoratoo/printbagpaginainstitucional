@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  Phone, 
-  Mail, 
+import { supabase } from "@/integrations/supabase/client";
+import {
+  Phone,
+  Mail,
   Send,
   Building2,
   User,
   Package,
   MessageSquare,
-  FileText
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,7 @@ const volumeOptions = [
   "1.000 a 5.000 unidades",
   "5.000 a 10.000 unidades",
   "10.000 a 50.000 unidades",
-  "Acima de 50.000 unidades"
+  "Acima de 50.000 unidades",
 ];
 
 const productTypes = [
@@ -32,7 +33,7 @@ const productTypes = [
   "Embalagens para Varejo",
   "Embalagens para E-commerce",
   "Caixas Presenteáveis",
-  "Outro"
+  "Outro",
 ];
 
 const assuntoOptions = [
@@ -41,69 +42,135 @@ const assuntoOptions = [
   "Falar com Recursos Humanos",
   "Quero ser um Fornecedor",
   "Sugestão ou Reclamação",
-  "Outros"
+  "Outros",
 ];
+
+const emptyFormState = {
+  nome: "",
+  empresa: "",
+  assunto: "",
+  email: "",
+  telefone: "",
+  tipoEmbalagem: "",
+  volume: "",
+  mensagem: "",
+};
+
+function getRecipientEmail(assunto: string): string {
+  switch (assunto) {
+    case "Falar com Recursos Humanos":
+      return "rh@printbag.com.br";
+    case "Quero ser um Fornecedor":
+      return "compras@printbag.com.br";
+    case "Sugestão ou Reclamação":
+      return "sac@printbag.com.br";
+    default:
+      return "marketing@printbag.com.br";
+  }
+}
+
+function isSupabaseConfigured(): boolean {
+  return Boolean(
+    import.meta.env.VITE_SUPABASE_URL?.trim() &&
+      import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim(),
+  );
+}
 
 export default function ContatoPage() {
   const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState(() => {
     const assuntoParam = searchParams.get("assunto");
     const mensagemParam = searchParams.get("mensagem");
-    
+
     return {
       nome: "",
       empresa: "",
-      assunto: assuntoParam && assuntoOptions.includes(assuntoParam) ? assuntoParam : "",
+      assunto:
+        assuntoParam && assuntoOptions.includes(assuntoParam) ? assuntoParam : "",
       email: "",
       telefone: "",
       tipoEmbalagem: "",
       volume: "",
-      mensagem: mensagemParam ? decodeURIComponent(mensagemParam) : ""
+      mensagem: mensagemParam ? decodeURIComponent(mensagemParam) : "",
     };
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const result = await submitContatoWeb3(formData);
+    const resetForm = () => {
+      setFormData({ ...emptyFormState });
+    };
 
-    if (!result.ok) {
-      toast.error("Não foi possível enviar", {
-        description: result.message,
+    try {
+      if (isSupabaseConfigured()) {
+        const id = crypto.randomUUID();
+        const recipientEmail = getRecipientEmail(formData.assunto);
+
+        const { error } = await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "contact-form-notification",
+            recipientEmail,
+            idempotencyKey: `contact-${id}`,
+            templateData: {
+              nome: formData.nome,
+              empresa: formData.empresa || undefined,
+              assunto: formData.assunto,
+              email: formData.email,
+              telefone: formData.telefone,
+              tipoEmbalagem: formData.tipoEmbalagem || undefined,
+              volume: formData.volume || undefined,
+              mensagem: formData.mensagem || undefined,
+            },
+          },
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        toast.success("Mensagem enviada com sucesso!", {
+          description: "Nossa equipe entrará em contato em breve.",
+        });
+        resetForm();
+        return;
+      }
+
+      const result = await submitContatoWeb3(formData);
+
+      if (!result.ok) {
+        toast.error("Não foi possível enviar", {
+          description: result.message,
+        });
+        return;
+      }
+
+      toast.success("Mensagem enviada com sucesso!", {
+        description: "Nossa equipe entrará em contato em breve.",
       });
+      resetForm();
+    } catch {
+      toast.error("Erro ao enviar mensagem.", {
+        description: "Tente novamente mais tarde.",
+      });
+    } finally {
       setIsSubmitting(false);
-      return;
     }
-
-    toast.success("Mensagem enviada com sucesso!", {
-      description: "Nossa equipe entrará em contato em breve.",
-    });
-
-    setFormData({
-      nome: "",
-      empresa: "",
-      assunto: "",
-      email: "",
-      telefone: "",
-      tipoEmbalagem: "",
-      volume: "",
-      mensagem: "",
-    });
-    setIsSubmitting(false);
   };
 
   const isOrcamento = formData.assunto === "Fazer um orçamento";
 
   return (
     <Layout>
-
       {/* Form Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-4">
@@ -118,8 +185,8 @@ export default function ContatoPage() {
                 Fale Conosco
               </h2>
               <p className="text-muted-foreground mb-8">
-                Preencha o formulário abaixo com suas informações e necessidades. 
-                Nossa equipe entrará em contato em até 24 horas úteis.
+                Preencha o formulário abaixo com suas informações e necessidades. Nossa equipe
+                entrará em contato em até 24 horas úteis.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -167,8 +234,10 @@ export default function ContatoPage() {
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     <option value="">Selecione...</option>
-                    {assuntoOptions.map(assunto => (
-                      <option key={assunto} value={assunto}>{assunto}</option>
+                    {assuntoOptions.map((assunto) => (
+                      <option key={assunto} value={assunto}>
+                        {assunto}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -225,8 +294,10 @@ export default function ContatoPage() {
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <option value="">Selecione...</option>
-                        {productTypes.map(type => (
-                          <option key={type} value={type}>{type}</option>
+                        {productTypes.map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -240,8 +311,10 @@ export default function ContatoPage() {
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <option value="">Selecione...</option>
-                        {volumeOptions.map(vol => (
-                          <option key={vol} value={vol}>{vol}</option>
+                        {volumeOptions.map((vol) => (
+                          <option key={vol} value={vol}>
+                            {vol}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -263,10 +336,10 @@ export default function ContatoPage() {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  variant="cta" 
-                  size="xl" 
+                <Button
+                  type="submit"
+                  variant="cta"
+                  size="xl"
                   disabled={isSubmitting}
                   className="w-full md:w-auto"
                 >
