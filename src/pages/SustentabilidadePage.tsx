@@ -21,10 +21,10 @@ import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
 
 const impactNumbers = [
-  { value: 127, suffix: "t", label: "De papel reciclado em 2026" },
-  { value: 205, suffix: "t", label: "De CO₂ não emitidas em 2026" },
-  { value: 9506, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
-  { value: 45, suffix: "", label: "Carros retirados de circulação por ano" }
+  { value: 190, suffix: "t", label: "De papel reciclado em 2026" },
+  { value: 312, suffix: "t", label: "De CO₂ não emitidas em 2026" },
+  { value: 14224, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
+  { value: 68, suffix: "", label: "Carros retirados de circulação por ano" }
 ];
 
 function CountUp({ value, suffix }: { value: number; suffix: string }) {
@@ -167,7 +167,7 @@ export default function SustentabilidadePage() {
             viewport={{ once: true }}
             className="text-center text-secondary-foreground/60 text-sm font-medium uppercase tracking-wider mb-8"
           >
-            Dados acumulados — Janeiro e Fevereiro de 2026
+            Dados acumulados — Janeiro a Março de 2026
           </motion.p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {impactNumbers.map((stat, index) => (
