@@ -128,7 +128,10 @@ export default function ContatoPage() {
         });
 
         if (error) {
-          throw error;
+          toast.error("Não foi possível enviar (servidor de e-mail)", {
+            description: error.message || "Verifique a configuração do Supabase e da função send-transactional-email.",
+          });
+          return;
         }
 
         toast.success("Mensagem enviada com sucesso!", {
@@ -151,10 +154,10 @@ export default function ContatoPage() {
         description: "Nossa equipe entrará em contato em breve.",
       });
       resetForm();
-    } catch {
-      toast.error("Erro ao enviar mensagem.", {
-        description: "Tente novamente mais tarde.",
-      });
+    } catch (err) {
+      const description =
+        err instanceof Error ? err.message : "Tente novamente mais tarde.";
+      toast.error("Erro ao enviar mensagem.", { description });
     } finally {
       setIsSubmitting(false);
     }

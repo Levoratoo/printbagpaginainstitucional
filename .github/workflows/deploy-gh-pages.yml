@@ -23,6 +23,8 @@ jobs:
           node-version: "20"
           cache: npm
 
+      # Build embute VITE_* no bundle. Sem os 4 segredos abaixo, Web3Forms não envia em produção.
+      # O workflow não define VITE_SUPABASE_* — em printbag.com.br o contato usa só Web3Forms (salvo alguém acrescente essas env aqui).
       - run: npm ci
       - run: npm run build
         env:
