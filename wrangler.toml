@@ -1,5 +1,4 @@
-# Cloudflare Pages — o slug do projeto NÃO vem do Git: é o nome em Workers & Pages (cabeçalho do projeto).
-# O deploy na Cloudflare usa CLOUDFLARE_PAGES_PROJECT_NAME (variável no dashboard) ou --project-name na CLI.
-# Ver package.json → script "pages:deploy".
+# Nome igual ao projeto em Workers & Pages (cabeçalho).
+name = "printbag-institucional"
 compatibility_date = "2026-04-08"
 pages_build_output_dir = "dist"
