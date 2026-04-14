@@ -16,12 +16,16 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-/** GitHub Pages project URL uses /repo/; custom domain is served at /. */
+/** GitHub Pages: /<repo>/; custom domain is served at /. */
+const GITHUB_PAGES_BASENAMES = ["/printbagpaginainstitucional", "/printbag-institucional"] as const;
+
 function getRouterBasename(): string | undefined {
   if (typeof window === "undefined") return undefined;
-  return window.location.pathname.startsWith("/printbag-institucional")
-    ? "/printbag-institucional"
-    : undefined;
+  const path = window.location.pathname;
+  for (const base of GITHUB_PAGES_BASENAMES) {
+    if (path === base || path.startsWith(`${base}/`)) return base;
+  }
+  return undefined;
 }
 
 const App = () => (
