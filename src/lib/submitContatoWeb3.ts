@@ -18,13 +18,15 @@ export type ContatoFormState = {
 
 function accessKeyForAssunto(assunto: string): string | undefined {
   const m = import.meta.env;
+  const marketing = m.VITE_WEB3FORMS_MARKETING?.trim();
   const table: Record<string, string | undefined> = {
-    "Fazer um orçamento": m.VITE_WEB3FORMS_MARKETING,
-    "Falar com Marketing": m.VITE_WEB3FORMS_MARKETING,
-    "Falar com Recursos Humanos": m.VITE_WEB3FORMS_RH,
-    "Quero ser um Fornecedor": m.VITE_WEB3FORMS_COMPRAS,
-    "Sugestão ou Reclamação": m.VITE_WEB3FORMS_SAC,
-    Outros: m.VITE_WEB3FORMS_MARKETING,
+    "Fazer um orçamento": marketing,
+    "Falar com Marketing": marketing,
+    // Fallback para marketing se as outras chaves não estiverem configuradas
+    "Falar com Recursos Humanos": m.VITE_WEB3FORMS_RH?.trim() || marketing,
+    "Quero ser um Fornecedor": m.VITE_WEB3FORMS_COMPRAS?.trim() || marketing,
+    "Sugestão ou Reclamação": m.VITE_WEB3FORMS_SAC?.trim() || marketing,
+    Outros: marketing,
   };
   return table[assunto];
 }
