@@ -294,7 +294,7 @@ export default function SustentabilidadePage() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Car className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground"><strong>22,5</strong> carros/ano</span>
+                        <span className="text-sm text-foreground"><strong>22,5</strong> carros/mês</span>
                       </div>
                     </div>
                   </div>

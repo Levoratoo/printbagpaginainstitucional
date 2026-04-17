@@ -242,7 +242,7 @@ export default function SobrePage() {
               </h3>
               <div className="w-12 h-0.5 bg-primary mb-6" />
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Inovar, encantar e apaixonar pessoas: criando embalagens que traduzem a identidade de cada marca com precisão e cuidado.
+                Inovar, encantar marcas e apaixonar pessoas: criando embalagens que traduzem a identidade de cada marca com precisão e cuidado.
               </p>
               <span className="inline-block border border-primary text-primary text-sm font-medium px-4 py-1.5 rounded-full">
                 Propósito

@@ -43,7 +43,7 @@ export const bagHandleOptionsSimple = [
   { id: "flat", label: "Flat", description: "Visual moderno e minimalista." },
   { id: "sao-francisco", label: "São Francisco", description: "Alça clássica de cordão torcido com acabamento refinado." },
   { id: "gorgurao", label: "Gorgurão", description: "Fita de tecido canelado, resistente e elegante." },
-  { id: "dalva", label: "Dalva", description: "Alça achatada em papel resistente com toque artesanal." },
+  { id: "dalva", label: "Dalva", description: "Alça cordão de poliéster ou algodão" },
   { id: "sintetica", label: "Sintética", description: "Cordão sintético durável com visual sofisticado." }
 ];
 
@@ -53,7 +53,7 @@ export const bagHandleOptionsPremium = [
   { id: "flat", label: "Flat", description: "Visual moderno e minimalista." },
   { id: "sao-francisco", label: "São Francisco", description: "Alça clássica de cordão torcido com acabamento refinado." },
   { id: "gorgurao", label: "Gorgurão", description: "Fita de tecido canelado, resistente e elegante." },
-  { id: "dalva", label: "Dalva", description: "Alça achatada em papel resistente com toque artesanal." },
+  { id: "dalva", label: "Dalva", description: "Alça cordão de poliéster ou algodão" },
   { id: "sintetica", label: "Sintética", description: "Cordão sintético durável com visual sofisticado." }
 ];
 

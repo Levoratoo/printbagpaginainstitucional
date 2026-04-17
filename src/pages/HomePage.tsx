@@ -202,7 +202,7 @@ export default function HomePage() {
               Nosso Portfólio
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mt-4 mb-6">
-              Setores que Atendemos
+              Segmentos que Atendemos
             </h2>
             <p className="text-lg text-muted-foreground">
               Do design à entrega, oferecemos uma linha completa de sacolas e embalagens 
