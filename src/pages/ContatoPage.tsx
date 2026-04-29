@@ -11,6 +11,7 @@ import {
   Package,
   MessageSquare,
   FileText,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,14 @@ import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/layout/Layout";
 import { submitContatoWeb3 } from "@/lib/submitContatoWeb3";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const volumeOptions = [
   "Até 1.000 unidades",
@@ -104,6 +113,7 @@ export default function ContatoPage() {
     };
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [thanksOpen, setThanksOpen] = useState(false);
   const [mapLocation, setMapLocation] = useState<MapLocationKey>("fabrica");
 
   const handleInputChange = (
@@ -151,10 +161,8 @@ export default function ContatoPage() {
           return;
         }
 
-        toast.success("Mensagem enviada com sucesso!", {
-          description: "Nossa equipe entrará em contato em breve.",
-        });
         resetForm();
+        setThanksOpen(true);
         return;
       }
 
@@ -167,10 +175,8 @@ export default function ContatoPage() {
         return;
       }
 
-      toast.success("Mensagem enviada com sucesso!", {
-        description: "Nossa equipe entrará em contato em breve.",
-      });
       resetForm();
+      setThanksOpen(true);
     } catch (err) {
       const description =
         err instanceof Error ? err.message : "Tente novamente mais tarde.";
@@ -423,6 +429,35 @@ export default function ContatoPage() {
           </div>
         </div>
       </section>
+
+      <Dialog open={thanksOpen} onOpenChange={setThanksOpen}>
+        <DialogContent className="sm:max-w-[440px] gap-0 overflow-hidden rounded-2xl border-primary/20 p-0 shadow-strong">
+          <div className="relative bg-gradient-to-br from-primary/[0.12] via-primary/[0.06] to-transparent px-8 pb-8 pt-10">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
+            <div className="mx-auto mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-background shadow-medium ring-4 ring-primary/15 ring-offset-2 ring-offset-background">
+              <CheckCircle2 className="h-10 w-10 text-primary" strokeWidth={2} />
+            </div>
+            <DialogHeader className="space-y-3 text-center sm:text-center">
+              <DialogTitle className="font-heading text-2xl font-bold tracking-tight text-foreground md:text-[1.65rem]">
+                Obrigado!
+              </DialogTitle>
+              <DialogDescription className="text-base leading-relaxed text-muted-foreground">
+                Nossa equipe entrará em contato.
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+          <DialogFooter className="border-t border-border/80 bg-muted/40 px-6 py-5 sm:justify-center">
+            <Button
+              type="button"
+              variant="cta"
+              className="min-w-[160px] rounded-full font-semibold shadow-glow-primary"
+              onClick={() => setThanksOpen(false)}
+            >
+              Entendi
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 }
