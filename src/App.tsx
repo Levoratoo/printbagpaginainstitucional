@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import HomePage from "./pages/HomePage";
 import SobrePage from "./pages/SobrePage";
@@ -13,6 +13,7 @@ import PrivacidadePage from "./pages/PrivacidadePage";
 import TrabalheConoscoPage from "./pages/TrabalheConoscoPage";
 import UnsubscribePage from "./pages/UnsubscribePage";
 import BlogPage from "./pages/BlogPage";
+import BlogArticlePage from "./pages/BlogArticlePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,7 +46,9 @@ const App = () => (
           <Route path="/privacidade" element={<PrivacidadePage />} />
           <Route path="/trabalhe-conosco" element={<TrabalheConoscoPage />} />
           <Route path="/unsubscribe" element={<UnsubscribePage />} />
-          <Route path="/blog/*" element={<BlogPage />} />
+          <Route path="/blog/" element={<Navigate to="/blog" replace />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
