@@ -17,6 +17,7 @@ const navItems = [
       { name: "Vantagens Printbag", path: "/solucoes", hash: "vantagens" },
     ]
   },
+  { name: "Blog", path: "/blog" },
   { name: "Loja", path: "https://loja.printbag.com.br/", external: true },
   { 
     name: "ESG", 

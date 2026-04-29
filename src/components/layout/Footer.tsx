@@ -5,6 +5,7 @@ import logoPrintbag from "@/assets/logo-printbag-original.svg";
 const footerLinks = {
   empresa: [
     { name: "Sobre Nós", path: "/sobre" },
+    { name: "Blog", path: "/blog" },
     { name: "Sustentabilidade", path: "/sustentabilidade" },
     { name: "Privacidade", path: "/privacidade" },
     { name: "Trabalhe Conosco", path: "/trabalhe-conosco" },
