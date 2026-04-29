@@ -26,9 +26,9 @@ jobs:
       # Build embute VITE_* no bundle. Sem os 4 segredos abaixo, Web3Forms não envia em produção.
       # O workflow não define VITE_SUPABASE_* — em printbag.com.br o contato usa só Web3Forms (salvo alguém acrescente essas env aqui).
       - run: npm ci
+      # Base "/" (omitir VITE_BASE): printbag.com.br e gh-pages com domínio próprio servem assets em /assets/...
       - run: npm run build
         env:
-          VITE_BASE: /printbagpaginainstitucional/
           VITE_WEB3FORMS_MARKETING: ${{ secrets.VITE_WEB3FORMS_MARKETING }}
           VITE_WEB3FORMS_RH: ${{ secrets.VITE_WEB3FORMS_RH }}
           VITE_WEB3FORMS_COMPRAS: ${{ secrets.VITE_WEB3FORMS_COMPRAS }}
