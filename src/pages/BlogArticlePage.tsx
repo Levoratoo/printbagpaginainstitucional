@@ -74,6 +74,19 @@ function mapLocalToRecord(post: LocalBlogPost): BlogArticleRecord {
   };
 }
 
+function normalizeContent(raw: unknown): ContentBlock[] {
+  if (!Array.isArray(raw)) return [];
+  const blocks: ContentBlock[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const o = item as Record<string, unknown>;
+    const text = typeof o.text === "string" ? o.text : "";
+    const type = o.type === "heading" ? "heading" : "paragraph";
+    blocks.push({ type, text });
+  }
+  return blocks;
+}
+
 function normalizeRemote(raw: unknown): BlogArticleRecord {
   const r = raw as Record<string, unknown>;
   const cats = r.blog_categories as { name?: string } | null | undefined;
@@ -81,7 +94,7 @@ function normalizeRemote(raw: unknown): BlogArticleRecord {
     title: String(r.title ?? ""),
     slug: String(r.slug ?? ""),
     excerpt: String(r.excerpt ?? ""),
-    content: Array.isArray(r.content) ? (r.content as ContentBlock[]) : [],
+    content: normalizeContent(r.content),
     cover_image_url: typeof r.cover_image_url === "string" ? r.cover_image_url : null,
     cover_image_alt: typeof r.cover_image_alt === "string" ? r.cover_image_alt : null,
     read_time_minutes: typeof r.read_time_minutes === "number" ? r.read_time_minutes : 6,
@@ -142,7 +155,10 @@ export default function BlogArticlePage() {
     enabled: Boolean(slug),
   });
 
-  const headings = (post?.content ?? []).filter((block) => block.type === "heading");
+  const headings = (post?.content ?? []).filter(
+    (block): block is ContentBlock & { type: "heading" } =>
+      Boolean(block) && block.type === "heading",
+  );
 
   const heroSrc =
     post?.cover_image_url ||
@@ -243,22 +259,21 @@ export default function BlogArticlePage() {
             <section className="container mx-auto px-4 py-12 md:py-16">
               <div className="grid lg:grid-cols-[1fr_320px] gap-12 items-start">
                 <div className="max-w-3xl space-y-10">
-                  {(post.content ?? []).map((block, index) =>
-                    block.type === "heading" ? (
-                      <section key={`${block.text}-${index}`}>
+                  {(post.content ?? []).map((block, index) => {
+                    const text = typeof block?.text === "string" ? block.text : "";
+                    const key = `${text}-${index}`;
+                    return block?.type === "heading" ? (
+                      <section key={key}>
                         <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">
-                          {block.text}
+                          {text}
                         </h2>
                       </section>
                     ) : (
-                      <p
-                        key={`${block.text}-${index}`}
-                        className="text-muted-foreground leading-relaxed text-lg"
-                      >
-                        {block.text}
+                      <p key={key} className="text-muted-foreground leading-relaxed text-lg">
+                        {text}
                       </p>
-                    ),
-                  )}
+                    );
+                  })}
 
                   <section className="border-t border-border pt-10">
                     <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">
@@ -278,8 +293,10 @@ export default function BlogArticlePage() {
                   <h3 className="font-heading font-bold text-foreground mb-4">Nesta publicação</h3>
                   <ul className="space-y-3 text-sm text-muted-foreground">
                     {headings.length ? (
-                      headings.map((heading) => (
-                        <li key={heading.text}>{heading.text.replace(/^\d+\.\s*/, "")}</li>
+                      headings.map((heading, hi) => (
+                        <li key={`${heading.text ?? "h"}-${hi}`}>
+                          {(heading.text ?? "").replace(/^\d+\.\s*/, "")}
+                        </li>
                       ))
                     ) : (
                       <li>Conteúdo Printbag</li>
