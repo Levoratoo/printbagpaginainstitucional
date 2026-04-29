@@ -13,6 +13,7 @@ import PrivacidadePage from "./pages/PrivacidadePage";
 import TrabalheConoscoPage from "./pages/TrabalheConoscoPage";
 import UnsubscribePage from "./pages/UnsubscribePage";
 import BlogPage from "./pages/BlogPage";
+import BlogArticlePage from "./pages/BlogArticlePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,8 +46,8 @@ const App = () => (
           <Route path="/privacidade" element={<PrivacidadePage />} />
           <Route path="/trabalhe-conosco" element={<TrabalheConoscoPage />} />
           <Route path="/unsubscribe" element={<UnsubscribePage />} />
-          {/* Splats cobrem /blog e URLs dos posts (/blog/slug) até haver páginas por artigo. */}
-          <Route path="/blog/*" element={<BlogPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

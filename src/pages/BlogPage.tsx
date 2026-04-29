@@ -3,53 +3,12 @@ import { Calendar, Clock, ArrowRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import productsCollection from "@/assets/products-collection.jpg";
-import productSacolas from "@/assets/product-sacolas.jpg";
-import finishHotStamping from "@/assets/finish-hot-stamping.jpg";
+import { blogPosts, postPath } from "@/data/blogPosts";
 
-const featuredPost = {
-  title: "Como escolher a embalagem ideal para valorizar sua marca",
-  excerpt:
-    "Critérios essenciais para alinhar material, acabamento, formato e experiência de compra em projetos de embalagem personalizados.",
-  date: "Janeiro 2026",
-  readTime: "6 min de leitura",
-  category: "Estratégia de Embalagem",
-  image: productsCollection,
-  path: "/blog/como-escolher-a-embalagem-ideal",
-};
+const featuredPost = blogPosts[0];
+const posts = blogPosts;
 
-const categories = [
-  "Todos",
-  "Estratégia de Embalagem",
-  "Sacolas",
-  "Acabamentos",
-];
-
-const posts = [
-  featuredPost,
-  {
-    title: "Sacolas personalizadas: o que considerar antes de produzir",
-    excerpt:
-      "Um guia prático sobre gramatura, alças, impressão e volume para marcas que buscam qualidade e consistência no ponto de venda.",
-    date: "Dezembro 2025",
-    readTime: "5 min de leitura",
-    category: "Sacolas",
-    image: productSacolas,
-    path: "/blog/sacolas-personalizadas-o-que-considerar",
-  },
-  {
-    title: "Acabamentos premium que aumentam a percepção de valor",
-    excerpt:
-      "Hot stamping, relevo, laminação e verniz localizado aplicados com propósito para criar embalagens mais memoráveis.",
-    date: "Novembro 2025",
-    readTime: "4 min de leitura",
-    category: "Acabamentos",
-    image: finishHotStamping,
-    path: "/blog/acabamentos-premium-percepcao-de-valor",
-  },
-];
-
-/** URL pública do blog no domínio de produção (printbag.com.br/blog). */
+/** URL pública do índice do blog em produção. */
 const BLOG_CANONICAL_URL = "https://printbag.com.br/blog";
 
 export default function BlogPage() {
@@ -71,9 +30,9 @@ export default function BlogPage() {
     });
   }, [activeSearch, selectedCategory]);
 
-  const showFeatured = filteredPosts.some((p) => p.path === featuredPost.path);
+  const showFeatured = filteredPosts.some((p) => p.slug === featuredPost.slug);
   const gridPosts = showFeatured
-    ? filteredPosts.filter((p) => p.path !== featuredPost.path)
+    ? filteredPosts.filter((p) => p.slug !== featuredPost.slug)
     : filteredPosts;
 
   const handleSearch = () => {
@@ -145,7 +104,7 @@ export default function BlogPage() {
       <section className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-2 mb-10">
-            {categories.map((cat) => (
+            {["Todos", "Estratégia de Embalagem", "Sacolas", "Acabamentos"].map((cat) => (
               <button
                 key={cat}
                 type="button"
@@ -178,7 +137,7 @@ export default function BlogPage() {
                   className="mb-12 md:mb-16"
                 >
                   <Link
-                    to={featuredPost.path}
+                    to={postPath(featuredPost.slug)}
                     className="group grid md:grid-cols-2 gap-0 rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow text-left"
                   >
                     <div className="aspect-[4/3] md:aspect-auto md:min-h-[280px] overflow-hidden">
@@ -216,13 +175,13 @@ export default function BlogPage() {
               <div className="grid gap-8 md:grid-cols-2">
                 {gridPosts.map((post, index) => (
                   <motion.article
-                    key={post.path}
+                    key={post.slug}
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.06 }}
                   >
                     <Link
-                      to={post.path}
+                      to={postPath(post.slug)}
                       className="group flex flex-col h-full rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow text-left"
                     >
                       <div className="aspect-[16/10] overflow-hidden">
