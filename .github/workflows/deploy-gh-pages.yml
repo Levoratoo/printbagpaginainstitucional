@@ -28,6 +28,7 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
+          VITE_BASE: /printbagpaginainstitucional/
           VITE_WEB3FORMS_MARKETING: ${{ secrets.VITE_WEB3FORMS_MARKETING }}
           VITE_WEB3FORMS_RH: ${{ secrets.VITE_WEB3FORMS_RH }}
           VITE_WEB3FORMS_COMPRAS: ${{ secrets.VITE_WEB3FORMS_COMPRAS }}

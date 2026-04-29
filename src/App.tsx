@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import HomePage from "./pages/HomePage";
 import SobrePage from "./pages/SobrePage";
@@ -30,6 +30,11 @@ function getRouterBasename(): string | undefined {
   return undefined;
 }
 
+function BlogArticleRedirect() {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={slug ? `/blog/${slug}` : "/blog"} replace />;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -46,7 +51,9 @@ const App = () => (
           <Route path="/privacidade" element={<PrivacidadePage />} />
           <Route path="/trabalhe-conosco" element={<TrabalheConoscoPage />} />
           <Route path="/unsubscribe" element={<UnsubscribePage />} />
+          <Route path="/blog/" element={<Navigate to="/blog" replace />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug/" element={<BlogArticleRedirect />} />
           <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
