@@ -83,11 +83,20 @@ export async function submitContatoWeb3(data: ContatoFormState): Promise<SubmitR
       body: JSON.stringify(payload),
     });
 
-    const json = (await res.json()) as {
-      success?: boolean;
-      message?: string;
-      body?: { message?: string };
-    };
+    const text = await res.text();
+    let json: { success?: boolean; message?: string; body?: { message?: string } } = {};
+    if (text.trim()) {
+      try {
+        json = JSON.parse(text) as typeof json;
+      } catch {
+        return {
+          ok: false,
+          message: res.ok
+            ? "Resposta inválida do serviço de formulários. Tente mais tarde."
+            : `Erro ao enviar (HTTP ${res.status}). Tente novamente.`,
+        };
+      }
+    }
 
     const ok = json.success === true;
     if (res.ok && ok) {
@@ -97,7 +106,21 @@ export async function submitContatoWeb3(data: ContatoFormState): Promise<SubmitR
     const errMsg =
       json.message || json.body?.message || `Erro ao enviar (${res.status}). Tente novamente.`;
     return { ok: false, message: errMsg };
-  } catch {
+  } catch (err) {
+    const failedFetch =
+      err instanceof TypeError ||
+      (err instanceof Error && /failed to fetch|networkerror|load failed/i.test(err.message));
+
+    if (failedFetch) {
+      return {
+        ok: false,
+        message:
+          "O browser não conseguiu contactar o Web3Forms (bloqueio de rede, VPN, firewall ou extensão). " +
+          "Se funciona em localhost e falha no domínio público, o Web3Forms pode pedir aprovação do domínio — contacte o suporte deles com printbag.com.br. " +
+          "Teste sem bloqueadores ou noutra rede.",
+      };
+    }
+
     return { ok: false, message: "Falha de rede. Verifique sua conexão e tente de novo." };
   }
 }

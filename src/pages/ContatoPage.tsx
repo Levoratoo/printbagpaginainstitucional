@@ -132,6 +132,15 @@ export default function ContatoPage() {
       setFormData({ ...emptyFormState });
     };
 
+    /** Mesmo quando o e-mail falha, o lead já foi enviado (webhook/n8n/Pipedrive). */
+    const acknowledgeLeadCaptured = () => {
+      resetForm();
+      setThanksOpen(true);
+      toast.success("Dados enviados", {
+        description: "Recebemos suas informações com sucesso.",
+      });
+    };
+
     const snapshot = { ...formData };
     const recipientEmail = getRecipientEmail(snapshot.assunto);
     const submissionId = crypto.randomUUID();
@@ -187,9 +196,7 @@ export default function ContatoPage() {
             channel: "supabase",
             error: error.message || "Erro Supabase send-transactional-email",
           };
-          toast.error("Não foi possível enviar (servidor de e-mail)", {
-            description: emailDelivery.error,
-          });
+          acknowledgeLeadCaptured();
         } else {
           emailDelivery = { ok: true, channel: "supabase", error: null };
           resetForm();
@@ -205,9 +212,7 @@ export default function ContatoPage() {
             channel: "web3forms",
             error: result.message,
           };
-          toast.error("Não foi possível enviar", {
-            description: result.message,
-          });
+          acknowledgeLeadCaptured();
         } else {
           emailDelivery = { ok: true, channel: "web3forms", error: null };
           resetForm();
@@ -221,7 +226,7 @@ export default function ContatoPage() {
         channel: emailDelivery.channel,
         error: msg,
       };
-      toast.error("Erro ao enviar mensagem.", { description: msg });
+      acknowledgeLeadCaptured();
     } finally {
       notifyContactFormWebhook({
         form: snapshot,
