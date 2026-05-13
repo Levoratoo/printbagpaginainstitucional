@@ -12,6 +12,9 @@ export type ContatoFormState = {
   email: string;
   telefone: string;
   tipoEmbalagem: string;
+  segmento: string;
+  numeroLojas: string;
+  ondeConheceu: string;
   volume: string;
   mensagem: string;
 };
@@ -40,10 +43,17 @@ function buildMessageBody(data: ContatoFormState): string {
     `E-mail: ${data.email}`,
     `Telefone: ${data.telefone}`,
   ];
-  if (data.tipoEmbalagem || data.volume) {
+  if (data.assunto === "Fazer um orçamento") {
+    lines.push(
+      `Segmento: ${data.segmento || "-"}`,
+      `Número de lojas: ${data.numeroLojas || "-"}`,
+      `Volume estimado: ${data.volume || "-"}`,
+      `Por onde nos conheceu: ${data.ondeConheceu || "-"}`,
+    );
+  } else if (data.tipoEmbalagem || data.volume) {
     lines.push(
       `Tipo de embalagem: ${data.tipoEmbalagem || "-"}`,
-      `Volume estimado: ${data.volume || "-"}`
+      `Volume estimado: ${data.volume || "-"}`,
     );
   }
   lines.push("", "Mensagem:", data.mensagem || "(sem texto adicional)");

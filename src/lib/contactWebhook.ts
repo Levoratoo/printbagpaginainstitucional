@@ -6,7 +6,11 @@ export type ContactFormSnapshot = {
   assunto: string;
   email: string;
   telefone: string;
+  /** Legado (outros fluxos); em «Fazer um orçamento» usar segmento */
   tipoEmbalagem: string;
+  segmento: string;
+  numeroLojas: string;
+  ondeConheceu: string;
   volume: string;
   mensagem: string;
 };

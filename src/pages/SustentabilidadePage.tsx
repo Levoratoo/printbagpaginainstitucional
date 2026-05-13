@@ -19,12 +19,13 @@ import seloFsc from "@/assets/selo-fsc-new.png";
 import seloEnergiaRenovavel from "@/assets/selo-energia-renovavel.png";
 import seloAbvtex from "@/assets/selo-abvtex.jpg";
 import seloTwoSides from "@/assets/selo-two-sides.png";
+import seloEcovadis from "@/assets/selo-ecovadis.png";
 
 const impactNumbers = [
-  { value: 190, suffix: "t", label: "De papel reciclado em 2026" },
-  { value: 312, suffix: "t", label: "De CO₂ não emitidas em 2026" },
-  { value: 14224, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
-  { value: 68, suffix: "", label: "Carros retirados de circulação por ano" }
+  { value: 254, suffix: "t", label: "De papel reciclado em 2026" },
+  { value: 412, suffix: "t", label: "De CO₂ não emitidas em 2026" },
+  { value: 18726, suffix: "", label: "Equivalente a novas árvores plantadas/ano" },
+  { value: 90, suffix: "", label: "Carros retirados de circulação por ano" },
 ];
 
 function CountUp({ value, suffix }: { value: number; suffix: string }) {
@@ -73,7 +74,13 @@ const certifications = [
     image: seloTwoSides,
     title: "Selo Two Sides",
     description: "Parceria com a Two Sides, instituição sem fins lucrativos que promove a sustentabilidade na cadeia gráfica e de embalagens celulósicas, combatendo o greenwashing e divulgando informações ambientais sobre o uso do papel."
-  }
+  },
+  {
+    image: seloEcovadis,
+    title: "Certificação EcoVadis",
+    description:
+      "Uma das avaliações de sustentabilidade empresarial mais reconhecidas globalmente, analisando o desempenho ESG (Ambiental, Social e Governança).",
+  },
 ];
 
 const esgPillars = [
@@ -285,16 +292,16 @@ export default function SustentabilidadePage() {
                       Redução de CO₂
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Em média por mês deixamos de emitir 104,56 toneladas de CO₂.
+                      Em média por mês deixamos de emitir 138,1 toneladas de CO₂.
                     </p>
                     <div className="flex gap-6">
                       <div className="flex items-center gap-2">
                         <TreePine className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground"><strong>4.753</strong> árvores/mês</span>
+                        <span className="text-sm text-foreground"><strong>6.257</strong> árvores/mês</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Car className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground"><strong>22,5</strong> carros/mês</span>
+                        <span className="text-sm text-foreground"><strong>29,8</strong> carros/mês</span>
                       </div>
                     </div>
                   </div>
@@ -326,7 +333,7 @@ export default function SustentabilidadePage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert.title}

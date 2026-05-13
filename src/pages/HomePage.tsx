@@ -21,7 +21,7 @@ import { Layout } from "@/components/layout/Layout";
 import heroFactory from "@/assets/hero-factory.jpg";
 import seloFsc from "@/assets/selo-fsc-new.png";
 import seloEnergia from "@/assets/selo-energia-renovavel.png";
-import seloAbvtex from "@/assets/selo-abvtex.jpg";
+import seloEcovadis from "@/assets/selo-ecovadis.png";
 import seloTwoSides from "@/assets/selo-two-sides.png";
 import premioExcelencia from "@/assets/premio-excelencia-grafica.png";
 import sustainabilityHero from "@/assets/sustainability-hero.jpg";
@@ -435,15 +435,15 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            {/* Certificado ABVTEX */}
+            {/* Certificação EcoVadis */}
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
               className="bg-card rounded-2xl p-6 shadow-medium border border-border hover:shadow-strong transition-shadow duration-300 flex flex-col">
               <div className="h-20 flex items-center justify-center mb-5">
-                <img src={seloAbvtex} loading="lazy" alt="Certificado ABVTEX" className="max-h-full max-w-full object-contain" />
+                <img src={seloEcovadis} loading="lazy" alt="Certificação EcoVadis" className="max-h-full max-w-full object-contain" />
               </div>
-              <h3 className="text-lg font-heading font-bold text-foreground mb-3">Certificado ABVTEX</h3>
+              <h3 className="text-lg font-heading font-bold text-foreground mb-3">Certificação EcoVadis</h3>
               <p className="text-muted-foreground text-sm leading-relaxed text-left">
-                Buscamos ações de boas práticas socioambientais e de governança no ambiente corporativo.
+                Uma das avaliações de sustentabilidade empresarial mais reconhecidas globalmente, analisando o desempenho ESG (Ambiental, Social e Governança).
               </p>
             </motion.div>
 
