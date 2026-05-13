@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/layout/Layout";
-import { notifyContactFormWebhook } from "@/lib/contactWebhook";
+import { notifyContactFormWebhook, type EmailDeliveryMeta } from "@/lib/contactWebhook";
 import { submitContatoWeb3 } from "@/lib/submitContatoWeb3";
 import { toast } from "sonner";
 import {
@@ -132,10 +132,36 @@ export default function ContatoPage() {
       setFormData({ ...emptyFormState });
     };
 
+    const snapshot = { ...formData };
+    const recipientEmail = getRecipientEmail(snapshot.assunto);
+    const submissionId = crypto.randomUUID();
+    const intendedChannel: "supabase" | "web3forms" = isSupabaseEnvConfigured()
+      ? "supabase"
+      : "web3forms";
+
+    notifyContactFormWebhook({
+      form: snapshot,
+      recipientEmail,
+      submissionId,
+      webhookPhase: "lead",
+      emailDelivery: {
+        ok: false,
+        channel: intendedChannel,
+        error: null,
+        pending: true,
+      },
+    });
+
+    let emailDelivery: EmailDeliveryMeta = {
+      ok: false,
+      channel: "none",
+      error: null,
+    };
+
     try {
       if (isSupabaseEnvConfigured()) {
+        emailDelivery = { ...emailDelivery, channel: "supabase" };
         const id = crypto.randomUUID();
-        const recipientEmail = getRecipientEmail(formData.assunto);
 
         const { error } = await supabase.functions.invoke("send-transactional-email", {
           body: {
@@ -143,54 +169,67 @@ export default function ContatoPage() {
             recipientEmail,
             idempotencyKey: `contact-${id}`,
             templateData: {
-              nome: formData.nome,
-              empresa: formData.empresa || undefined,
-              assunto: formData.assunto,
-              email: formData.email,
-              telefone: formData.telefone,
-              tipoEmbalagem: formData.tipoEmbalagem || undefined,
-              volume: formData.volume || undefined,
-              mensagem: formData.mensagem || undefined,
+              nome: snapshot.nome,
+              empresa: snapshot.empresa || undefined,
+              assunto: snapshot.assunto,
+              email: snapshot.email,
+              telefone: snapshot.telefone,
+              tipoEmbalagem: snapshot.tipoEmbalagem || undefined,
+              volume: snapshot.volume || undefined,
+              mensagem: snapshot.mensagem || undefined,
             },
           },
         });
 
         if (error) {
+          emailDelivery = {
+            ok: false,
+            channel: "supabase",
+            error: error.message || "Erro Supabase send-transactional-email",
+          };
           toast.error("Não foi possível enviar (servidor de e-mail)", {
-            description: error.message || "Verifique a configuração do Supabase e da função send-transactional-email.",
+            description: emailDelivery.error,
           });
-          return;
+        } else {
+          emailDelivery = { ok: true, channel: "supabase", error: null };
+          resetForm();
+          setThanksOpen(true);
         }
+      } else {
+        emailDelivery = { ...emailDelivery, channel: "web3forms" };
+        const result = await submitContatoWeb3(snapshot);
 
-        notifyContactFormWebhook({
-          form: { ...formData },
-          recipientEmail: getRecipientEmail(formData.assunto),
-        });
-        resetForm();
-        setThanksOpen(true);
-        return;
+        if (!result.ok) {
+          emailDelivery = {
+            ok: false,
+            channel: "web3forms",
+            error: result.message,
+          };
+          toast.error("Não foi possível enviar", {
+            description: result.message,
+          });
+        } else {
+          emailDelivery = { ok: true, channel: "web3forms", error: null };
+          resetForm();
+          setThanksOpen(true);
+        }
       }
-
-      const result = await submitContatoWeb3(formData);
-
-      if (!result.ok) {
-        toast.error("Não foi possível enviar", {
-          description: result.message,
-        });
-        return;
-      }
-
-      notifyContactFormWebhook({
-        form: { ...formData },
-        recipientEmail: getRecipientEmail(formData.assunto),
-      });
-      resetForm();
-      setThanksOpen(true);
     } catch (err) {
-      const description =
-        err instanceof Error ? err.message : "Tente novamente mais tarde.";
-      toast.error("Erro ao enviar mensagem.", { description });
+      const msg = err instanceof Error ? err.message : "Tente novamente mais tarde.";
+      emailDelivery = {
+        ok: false,
+        channel: emailDelivery.channel,
+        error: msg,
+      };
+      toast.error("Erro ao enviar mensagem.", { description: msg });
     } finally {
+      notifyContactFormWebhook({
+        form: snapshot,
+        recipientEmail,
+        submissionId,
+        webhookPhase: "delivery",
+        emailDelivery,
+      });
       setIsSubmitting(false);
     }
   };

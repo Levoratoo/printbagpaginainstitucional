@@ -55,21 +55,32 @@ Roteamento por assunto no site:
 ## UTM + webhook (CRM / automação)
 
 - **`UtmCapture`** guarda na sessão (`sessionStorage`) parâmetros da URL em cada navegação: `utm_*`, `gclid`, `fbclid`, `msclkid`, etc. Ver lista em `src/lib/utmCapture.ts`.
-- Após **envio bem-sucedido** do formulário em `/contato`, o site faz um **POST JSON opcional** para `VITE_CONTACT_WEBHOOK_URL` (Zapier, Make, n8n, API própria).
+- Ao **submeter** o formulário em `/contato`, o site faz até **dois POSTs JSON opcionais** para `VITE_CONTACT_WEBHOOK_URL` (n8n, Zapier, Make, API própria), com o mesmo `submission_id`:
+  - **`webhook_phase`: `"lead"`** — disparado **antes** de tentar o e-mail (`email_delivery.pending`: true); captura o lead logo de imediato.
+  - **`webhook_phase`: `"delivery"`** — disparado no fim (**sempre**, em `finally`), com o resultado real do e-mail (`email_delivery.ok`, `channel`, `error`).
 
-Corpo típico:
+Corpo típico (fase `delivery` após sucesso):
 
 ```json
 {
   "event": "contact_form_submitted",
+  "webhook_phase": "delivery",
+  "submission_id": "uuid-da-submissão",
   "timestamp": "2026-01-01T12:00:00.000Z",
   "page_url": "https://printbag.com.br/contato",
   "referrer": "…",
   "recipient_email": "marketing@printbag.com.br",
+  "email_delivery": {
+    "ok": true,
+    "channel": "web3forms",
+    "error": null
+  },
   "utm": { "utm_source": "google", "utm_medium": "cpc" },
   "form": { "nome": "…", "email": "…", "assunto": "…", … }
 }
 ```
+
+No n8n, use `submission_id` para correlacionar `lead` e `delivery`, e `email_delivery` na fase `delivery` para alertas ou retry se o e-mail falhar.
 
 Configuração:
 
