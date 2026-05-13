@@ -55,16 +55,14 @@ Roteamento por assunto no site:
 ## UTM + webhook (CRM / automação)
 
 - **`UtmCapture`** guarda na sessão (`sessionStorage`) parâmetros da URL em cada navegação: `utm_*`, `gclid`, `fbclid`, `msclkid`, etc. Ver lista em `src/lib/utmCapture.ts`.
-- Ao **submeter** o formulário em `/contato`, o site faz até **dois POSTs JSON opcionais** para `VITE_CONTACT_WEBHOOK_URL` (n8n, Zapier, Make, API própria), com o mesmo `submission_id`:
-  - **`webhook_phase`: `"lead"`** — disparado **antes** de tentar o e-mail (`email_delivery.pending`: true); captura o lead logo de imediato.
-  - **`webhook_phase`: `"delivery"`** — disparado no fim (**sempre**, em `finally`), com o resultado real do e-mail (`email_delivery.ok`, `channel`, `error`).
+- Ao **submeter** o formulário em `/contato`, o site faz **um único POST JSON** para `VITE_CONTACT_WEBHOOK_URL` (n8n, Zapier, Make, API própria), após a tentativa de e-mail, com **`webhook_phase`: `"submit"`** e o resultado em `email_delivery` (`ok`, `channel`, `error`).
 
-Corpo típico (fase `delivery` após sucesso):
+Corpo típico (após sucesso do e-mail):
 
 ```json
 {
   "event": "contact_form_submitted",
-  "webhook_phase": "delivery",
+  "webhook_phase": "submit",
   "submission_id": "uuid-da-submissão",
   "timestamp": "2026-01-01T12:00:00.000Z",
   "page_url": "https://printbag.com.br/contato",
@@ -75,12 +73,18 @@ Corpo típico (fase `delivery` após sucesso):
     "channel": "web3forms",
     "error": null
   },
-  "utm": { "utm_source": "google", "utm_medium": "cpc" },
+  "utm": {
+    "utm_source": "google",
+    "utm_medium": "cpc",
+    "utm_campaign": "",
+    "utm_term": "",
+    "utm_content": ""
+  },
   "form": { "nome": "…", "email": "…", "assunto": "…", … }
 }
 ```
 
-No n8n, use `submission_id` para correlacionar `lead` e `delivery`, e `email_delivery` na fase `delivery` para alertas ou retry se o e-mail falhar.
+No n8n, use `submission_id` como idempotência se precisar; `email_delivery` indica se o e-mail foi enviado ou se vale alertar/retry.
 
 Configuração:
 

@@ -19,17 +19,14 @@ export type EmailDeliveryMeta = {
   ok: boolean;
   channel: "supabase" | "web3forms" | "none";
   error: string | null;
-  /** true no primeiro webhook, antes de tentar enviar o e-mail */
-  pending?: boolean;
 };
 
-export type ContactWebhookPhase = "lead" | "delivery";
+/** Uma única fase por submissão — evita dois POSTs ao n8n/Pipedrive. */
+export type ContactWebhookPhase = "submit";
 
 /**
- * POST para VITE_CONTACT_WEBHOOK_URL.
- * - phase `lead`: disparado logo ao submeter (antes do e-mail).
- * - phase `delivery`: disparado no finally com o resultado do e-mail.
- * Use `submission_id` no n8n para agrupar os dois eventos.
+ * POST único para VITE_CONTACT_WEBHOOK_URL após tentativa de e-mail.
+ * Inclui resultado em `email_delivery` para alertas ou retry no n8n.
  */
 export function notifyContactFormWebhook(args: {
   form: ContactFormSnapshot;

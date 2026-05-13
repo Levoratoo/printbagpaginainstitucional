@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { isSupabaseEnvConfigured, supabase } from "@/integrations/supabase/client";
@@ -151,6 +151,8 @@ export default function ContatoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [thanksOpen, setThanksOpen] = useState(false);
   const [mapLocation, setMapLocation] = useState<MapLocationKey>("fabrica");
+  /** Impede segundo submit antes do React atualizar `isSubmitting` (double-click). */
+  const submitInFlightRef = useRef(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -178,128 +180,118 @@ export default function ContatoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitInFlightRef.current) return;
+    submitInFlightRef.current = true;
+
     mergeMarketingParamsFromSearch(location.search || "");
     const utmPayload = getContactFormUtmSnapshot();
     setUtmHidden(utmPayload);
 
     setIsSubmitting(true);
 
-    const resetForm = () => {
-      setFormData({ ...emptyFormState });
-    };
-
-    /** Mesmo quando o e-mail falha, o lead já foi enviado (webhook/n8n/Pipedrive). */
-    const acknowledgeLeadCaptured = () => {
-      resetForm();
-      setThanksOpen(true);
-      toast.success("Dados enviados", {
-        description: "Recebemos suas informações com sucesso.",
-      });
-    };
-
-    const snapshot = { ...formData };
-    const recipientEmail = getRecipientEmail(snapshot.assunto);
-    const submissionId = crypto.randomUUID();
-    const intendedChannel: "supabase" | "web3forms" = isSupabaseEnvConfigured()
-      ? "supabase"
-      : "web3forms";
-
-    notifyContactFormWebhook({
-      form: snapshot,
-      recipientEmail,
-      submissionId,
-      webhookPhase: "lead",
-      emailDelivery: {
-        ok: false,
-        channel: intendedChannel,
-        error: null,
-        pending: true,
-      },
-      utm: utmPayload,
-    });
-
-    let emailDelivery: EmailDeliveryMeta = {
-      ok: false,
-      channel: "none",
-      error: null,
-    };
-
     try {
-      if (isSupabaseEnvConfigured()) {
-        emailDelivery = { ...emailDelivery, channel: "supabase" };
-        const id = crypto.randomUUID();
-
-        const { error } = await supabase.functions.invoke("send-transactional-email", {
-          body: {
-            templateName: "contact-form-notification",
-            recipientEmail,
-            idempotencyKey: `contact-${id}`,
-            templateData: {
-              nome: snapshot.nome,
-              empresa: snapshot.empresa || undefined,
-              assunto: snapshot.assunto,
-              email: snapshot.email,
-              telefone: snapshot.telefone,
-              tipoEmbalagem:
-                snapshot.assunto === "Fazer um orçamento"
-                  ? snapshot.segmento || undefined
-                  : snapshot.tipoEmbalagem || undefined,
-              segmento: snapshot.segmento || undefined,
-              numeroLojas: snapshot.numeroLojas || undefined,
-              ondeConheceu: snapshot.ondeConheceu || undefined,
-              volume: snapshot.volume || undefined,
-              mensagem: snapshot.mensagem || undefined,
-            },
-          },
-        });
-
-        if (error) {
-          emailDelivery = {
-            ok: false,
-            channel: "supabase",
-            error: error.message || "Erro Supabase send-transactional-email",
-          };
-          acknowledgeLeadCaptured();
-        } else {
-          emailDelivery = { ok: true, channel: "supabase", error: null };
-          resetForm();
-          setThanksOpen(true);
-        }
-      } else {
-        emailDelivery = { ...emailDelivery, channel: "web3forms" };
-        const result = await submitContatoWeb3(snapshot);
-
-        if (!result.ok) {
-          emailDelivery = {
-            ok: false,
-            channel: "web3forms",
-            error: result.message,
-          };
-          acknowledgeLeadCaptured();
-        } else {
-          emailDelivery = { ok: true, channel: "web3forms", error: null };
-          resetForm();
-          setThanksOpen(true);
-        }
-      }
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Tente novamente mais tarde.";
-      emailDelivery = {
-        ok: false,
-        channel: emailDelivery.channel,
-        error: msg,
+      const resetForm = () => {
+        setFormData({ ...emptyFormState });
       };
-      acknowledgeLeadCaptured();
+
+      /** Mesmo quando o e-mail falha, o lead já foi enviado (webhook/n8n/Pipedrive). */
+      const acknowledgeLeadCaptured = () => {
+        resetForm();
+        setThanksOpen(true);
+        toast.success("Dados enviados", {
+          description: "Recebemos suas informações com sucesso.",
+        });
+      };
+
+      const snapshot = { ...formData };
+      const recipientEmail = getRecipientEmail(snapshot.assunto);
+      const submissionId = crypto.randomUUID();
+
+      let emailDelivery: EmailDeliveryMeta = {
+        ok: false,
+        channel: "none",
+        error: null,
+      };
+
+      try {
+        if (isSupabaseEnvConfigured()) {
+          emailDelivery = { ...emailDelivery, channel: "supabase" };
+          const id = crypto.randomUUID();
+
+          const { error } = await supabase.functions.invoke("send-transactional-email", {
+            body: {
+              templateName: "contact-form-notification",
+              recipientEmail,
+              idempotencyKey: `contact-${id}`,
+              templateData: {
+                nome: snapshot.nome,
+                empresa: snapshot.empresa || undefined,
+                assunto: snapshot.assunto,
+                email: snapshot.email,
+                telefone: snapshot.telefone,
+                tipoEmbalagem:
+                  snapshot.assunto === "Fazer um orçamento"
+                    ? snapshot.segmento || undefined
+                    : snapshot.tipoEmbalagem || undefined,
+                segmento: snapshot.segmento || undefined,
+                numeroLojas: snapshot.numeroLojas || undefined,
+                ondeConheceu: snapshot.ondeConheceu || undefined,
+                volume: snapshot.volume || undefined,
+                mensagem: snapshot.mensagem || undefined,
+              },
+            },
+          });
+
+          if (error) {
+            emailDelivery = {
+              ok: false,
+              channel: "supabase",
+              error: error.message || "Erro Supabase send-transactional-email",
+            };
+            acknowledgeLeadCaptured();
+          } else {
+            emailDelivery = { ok: true, channel: "supabase", error: null };
+            resetForm();
+            setThanksOpen(true);
+          }
+        } else {
+          emailDelivery = { ...emailDelivery, channel: "web3forms" };
+          const result = await submitContatoWeb3(snapshot);
+
+          if (!result.ok) {
+            emailDelivery = {
+              ok: false,
+              channel: "web3forms",
+              error: result.message,
+            };
+            acknowledgeLeadCaptured();
+          } else {
+            emailDelivery = { ok: true, channel: "web3forms", error: null };
+            resetForm();
+            setThanksOpen(true);
+          }
+        }
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Tente novamente mais tarde.";
+        emailDelivery = {
+          ok: false,
+          channel: emailDelivery.channel,
+          error: msg,
+        };
+        acknowledgeLeadCaptured();
+      } finally {
+        notifyContactFormWebhook({
+          form: snapshot,
+          recipientEmail,
+          submissionId,
+          webhookPhase: "submit",
+          emailDelivery,
+          utm: utmPayload,
+        });
+      }
     } finally {
-      notifyContactFormWebhook({
-        form: snapshot,
-        recipientEmail,
-        submissionId,
-        webhookPhase: "delivery",
-        emailDelivery,
-        utm: utmPayload,
-      });
       setIsSubmitting(false);
+      submitInFlightRef.current = false;
     }
   };
 
@@ -325,7 +317,7 @@ export default function ContatoPage() {
                 entrará em contato em até 24 horas úteis.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} method="post" className="space-y-6">
                 {CONTACT_FORM_UTM_KEYS.map((key) => (
                   <input key={key} type="hidden" name={key} value={utmHidden[key]} readOnly />
                 ))}
