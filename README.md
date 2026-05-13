@@ -52,6 +52,34 @@ Roteamento por assunto no site:
 | Sugestão ou Reclamação | sac |
 | Outros | marketing |
 
+## UTM + webhook (CRM / automação)
+
+- **`UtmCapture`** guarda na sessão (`sessionStorage`) parâmetros da URL em cada navegação: `utm_*`, `gclid`, `fbclid`, `msclkid`, etc. Ver lista em `src/lib/utmCapture.ts`.
+- Após **envio bem-sucedido** do formulário em `/contato`, o site faz um **POST JSON opcional** para `VITE_CONTACT_WEBHOOK_URL` (Zapier, Make, n8n, API própria).
+
+Corpo típico:
+
+```json
+{
+  "event": "contact_form_submitted",
+  "timestamp": "2026-01-01T12:00:00.000Z",
+  "page_url": "https://printbag.com.br/contato",
+  "referrer": "…",
+  "recipient_email": "marketing@printbag.com.br",
+  "utm": { "utm_source": "google", "utm_medium": "cpc" },
+  "form": { "nome": "…", "email": "…", "assunto": "…", … }
+}
+```
+
+Configuração:
+
+1. `.env`: `VITE_CONTACT_WEBHOOK_URL=https://…`
+2. GitHub Actions: secret **`VITE_CONTACT_WEBHOOK_URL`** (o workflow já repassa para o build).
+
+**CORS:** o browser só consegue enviar se o endpoint aceitar `Origin` do site (ex.: Zapier/Make costumam aceitar). Se falhar no browser, usa um proxy server-side.
+
+**LGPD:** o webhook inclui dados pessoais — usa canal seguro e base legal alinhada à política de privacidade.
+
 ## Publicação (GitHub Pages)
 
 O repositório publica o conteúdo de `dist/` na branch **`gh-pages`** (workflow em `.github/workflows/deploy-gh-pages.yml` ou deploy manual equivalente).

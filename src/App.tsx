@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { UtmCapture } from "@/components/UtmCapture";
 import HomePage from "./pages/HomePage";
 import SobrePage from "./pages/SobrePage";
 import SolucoesPage from "./pages/SolucoesPage";
@@ -37,6 +38,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter basename={getRouterBasename()}>
         <ScrollToTop />
+        <UtmCapture />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/sobre" element={<SobrePage />} />
@@ -47,8 +49,11 @@ const App = () => (
           <Route path="/trabalhe-conosco" element={<TrabalheConoscoPage />} />
           <Route path="/unsubscribe" element={<UnsubscribePage />} />
           <Route path="/blog/" element={<Navigate to="/blog" replace />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogArticlePage />} />
+          {/* Sem Outlet: pai só agrupa paths; index + :slug renderizam direto (evita /blog em branco). */}
+          <Route path="/blog">
+            <Route index element={<BlogPage />} />
+            <Route path=":slug" element={<BlogArticlePage />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

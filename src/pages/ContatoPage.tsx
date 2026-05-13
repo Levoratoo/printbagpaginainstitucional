@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/layout/Layout";
+import { notifyContactFormWebhook } from "@/lib/contactWebhook";
 import { submitContatoWeb3 } from "@/lib/submitContatoWeb3";
 import { toast } from "sonner";
 import {
@@ -161,6 +162,10 @@ export default function ContatoPage() {
           return;
         }
 
+        notifyContactFormWebhook({
+          form: { ...formData },
+          recipientEmail: getRecipientEmail(formData.assunto),
+        });
         resetForm();
         setThanksOpen(true);
         return;
@@ -175,6 +180,10 @@ export default function ContatoPage() {
         return;
       }
 
+      notifyContactFormWebhook({
+        form: { ...formData },
+        recipientEmail: getRecipientEmail(formData.assunto),
+      });
       resetForm();
       setThanksOpen(true);
     } catch (err) {
