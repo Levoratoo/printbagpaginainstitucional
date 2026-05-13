@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { isSupabaseEnvConfigured, supabase } from "@/integrations/supabase/client";
 import {
@@ -19,6 +19,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/layout/Layout";
 import { notifyContactFormWebhook, type EmailDeliveryMeta } from "@/lib/contactWebhook";
+import {
+  mergeMarketingParamsFromSearch,
+  getContactFormUtmSnapshot,
+  CONTACT_FORM_UTM_KEYS,
+} from "@/lib/utmCapture";
 import { submitContatoWeb3 } from "@/lib/submitContatoWeb3";
 import { toast } from "sonner";
 import {
@@ -116,6 +121,14 @@ function getRecipientEmail(assunto: string): string {
 
 export default function ContatoPage() {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const [utmHidden, setUtmHidden] = useState(() => getContactFormUtmSnapshot());
+
+  useEffect(() => {
+    mergeMarketingParamsFromSearch(location.search || "");
+    setUtmHidden(getContactFormUtmSnapshot());
+  }, [location.search]);
+
   const [formData, setFormData] = useState(() => {
     const assuntoParam = searchParams.get("assunto");
     const mensagemParam = searchParams.get("mensagem");
@@ -165,6 +178,10 @@ export default function ContatoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    mergeMarketingParamsFromSearch(location.search || "");
+    const utmPayload = getContactFormUtmSnapshot();
+    setUtmHidden(utmPayload);
+
     setIsSubmitting(true);
 
     const resetForm = () => {
@@ -198,6 +215,7 @@ export default function ContatoPage() {
         error: null,
         pending: true,
       },
+      utm: utmPayload,
     });
 
     let emailDelivery: EmailDeliveryMeta = {
@@ -279,6 +297,7 @@ export default function ContatoPage() {
         submissionId,
         webhookPhase: "delivery",
         emailDelivery,
+        utm: utmPayload,
       });
       setIsSubmitting(false);
     }
@@ -307,6 +326,9 @@ export default function ContatoPage() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {CONTACT_FORM_UTM_KEYS.map((key) => (
+                  <input key={key} type="hidden" name={key} value={utmHidden[key]} readOnly />
+                ))}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nome" className="flex items-center gap-2">

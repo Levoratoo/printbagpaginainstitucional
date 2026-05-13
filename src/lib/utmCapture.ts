@@ -4,6 +4,36 @@
  */
 const STORAGE_KEY = "printbag_marketing_params";
 
+/** UTMs enviados ao webhook/n8n no objeto `utm` (sempre as 5 chaves; vazio se ausente). */
+export const CONTACT_FORM_UTM_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+] as const;
+
+export type ContactFormUtmPayload = {
+  [K in (typeof CONTACT_FORM_UTM_KEYS)[number]]: string;
+};
+
+/** Snapshot para hidden inputs + POST — valores vindos da sessão (preenchida pela URL). */
+export function getContactFormUtmSnapshot(): ContactFormUtmPayload {
+  const stored = getStoredMarketingParams();
+  const empty: ContactFormUtmPayload = {
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_term: "",
+    utm_content: "",
+  };
+  for (const key of CONTACT_FORM_UTM_KEYS) {
+    const v = stored[key];
+    if (typeof v === "string" && v.trim()) empty[key] = v.trim();
+  }
+  return empty;
+}
+
 /** UTMs + identificadores comuns de anúncio — pode acrescentar chaves aqui. */
 const TRACKED_KEYS = [
   "utm_source",

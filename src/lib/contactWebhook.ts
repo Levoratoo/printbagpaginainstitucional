@@ -1,4 +1,4 @@
-import { getStoredMarketingParams } from "@/lib/utmCapture";
+import { type ContactFormUtmPayload } from "@/lib/utmCapture";
 
 export type ContactFormSnapshot = {
   nome: string;
@@ -37,11 +37,11 @@ export function notifyContactFormWebhook(args: {
   submissionId: string;
   webhookPhase: ContactWebhookPhase;
   emailDelivery: EmailDeliveryMeta;
+  utm: ContactFormUtmPayload;
 }): void {
   const url = import.meta.env.VITE_CONTACT_WEBHOOK_URL?.trim();
   if (!url) return;
 
-  const utm = getStoredMarketingParams();
   const body = {
     event: "contact_form_submitted",
     webhook_phase: args.webhookPhase,
@@ -51,7 +51,7 @@ export function notifyContactFormWebhook(args: {
     referrer: typeof document !== "undefined" ? document.referrer || null : null,
     recipient_email: args.recipientEmail,
     email_delivery: args.emailDelivery,
-    utm,
+    utm: args.utm,
     form: args.form,
   };
 
