@@ -10,6 +10,7 @@ export type ContactFormSnapshot = {
   tipoEmbalagem: string;
   segmento: string;
   numeroLojas: string;
+  perfilLead: string;
   ondeConheceu: string;
   volume: string;
   mensagem: string;

@@ -14,6 +14,7 @@ export type ContatoFormState = {
   tipoEmbalagem: string;
   segmento: string;
   numeroLojas: string;
+  perfilLead: string;
   ondeConheceu: string;
   volume: string;
   mensagem: string;
@@ -45,6 +46,7 @@ function buildMessageBody(data: ContatoFormState): string {
   ];
   if (data.assunto === "Fazer um orçamento") {
     lines.push(
+      `Qual o seu perfil: ${data.perfilLead || "-"}`,
       `Segmento: ${data.segmento || "-"}`,
       `Número de lojas: ${data.numeroLojas || "-"}`,
       `Volume estimado: ${data.volume || "-"}`,

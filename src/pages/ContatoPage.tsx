@@ -67,6 +67,13 @@ const ondeConheceuOptions = [
   "Outro",
 ];
 
+const perfilLeadOptions = [
+  "Comprador / Suprimentos",
+  "Diretor / Gestor",
+  "Agente de Marketing",
+  "Pessoa Física / Cliente Final",
+];
+
 const assuntoOptions = [
   "Fazer um orçamento",
   "Falar com Marketing",
@@ -85,6 +92,7 @@ const emptyFormState = {
   tipoEmbalagem: "",
   segmento: "",
   numeroLojas: "",
+  perfilLead: "",
   ondeConheceu: "",
   volume: "",
   mensagem: "",
@@ -143,6 +151,7 @@ export default function ContatoPage() {
       tipoEmbalagem: "",
       segmento: "",
       numeroLojas: "",
+      perfilLead: "",
       ondeConheceu: "",
       volume: "",
       mensagem: mensagemParam ? decodeURIComponent(mensagemParam) : "",
@@ -167,11 +176,12 @@ export default function ContatoPage() {
             tipoEmbalagem: "",
             segmento: "",
             numeroLojas: "",
+            perfilLead: "",
             ondeConheceu: "",
             volume: "",
           };
         }
-        return { ...next, tipoEmbalagem: "", segmento: "", numeroLojas: "", ondeConheceu: "", volume: "" };
+        return { ...next, tipoEmbalagem: "", segmento: "", numeroLojas: "", perfilLead: "", ondeConheceu: "", volume: "" };
       });
       return;
     }
@@ -235,6 +245,7 @@ export default function ContatoPage() {
                     : snapshot.tipoEmbalagem || undefined,
                 segmento: snapshot.segmento || undefined,
                 numeroLojas: snapshot.numeroLojas || undefined,
+                perfilLead: snapshot.perfilLead || undefined,
                 ondeConheceu: snapshot.ondeConheceu || undefined,
                 volume: snapshot.volume || undefined,
                 mensagem: snapshot.mensagem || undefined,
@@ -412,6 +423,23 @@ export default function ContatoPage() {
                     exit={{ opacity: 0, height: 0 }}
                     className="space-y-6"
                   >
+                    <div className="space-y-2">
+                      <Label htmlFor="perfilLead">Qual o seu perfil?</Label>
+                      <select
+                        id="perfilLead"
+                        name="perfilLead"
+                        value={formData.perfilLead}
+                        onChange={handleInputChange}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:max-w-md"
+                      >
+                        <option value="">Selecione...</option>
+                        {perfilLeadOptions.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="segmento" className="flex items-center gap-2">
